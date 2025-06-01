@@ -2,11 +2,13 @@ import express from 'express';
 import multer from 'multer';
 import mongoose from 'mongoose';
 import PendingModel from './user.js';
+import pdf from 'pdf-parse'
+import fs from 'fs'
 
 const router = express.Router();
 const ObjectId = mongoose.Types.ObjectId;
 
-// Multer setup for file uploads
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, './files'),
   filename: (req, file, cb) => {
@@ -40,13 +42,18 @@ router.get("/", (req, res) => {
   res.status(200).send("Server is running!");
 });
 
-router.post('/upload-pdf', upload.single('file'), (req, res) => {
-    if (!req.file) return res.status(400).json({ status: 'error', message: 'No file uploaded' });
-
-    res.status(200).json({
-        status: 'ok',
-        pdf: { fileUrl: req.file.filename },
-    });
+router.post('/upload-pdf', upload.single('file'), async(req, res) => {
+    try {
+      if (!req.file) return res.status(400).json({ status: 'error', message: 'No file uploaded' });
+      const filePath = path.resolve(req.file.path);
+      const dataBuffer = fs.readFileSync(filePath);
+      const data = await pdf(dataBuffer);
+      const pageCount = data.numpages;
+      res.status(200).json({status: 'ok', pdf: { fileUrl: req.file.filename }, pageCount});
+    } catch (error) {
+      console.error('PDF parsing error:', error);
+      res.status(500).json({ error: 'Failed to read PDF' });
+    }
 });
 
 // Get all PDFs
