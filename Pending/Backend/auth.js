@@ -4,9 +4,11 @@ import mongoose from 'mongoose';
 import PendingModel from './user.js';
 import pdf from 'pdf-parse'
 import fs from 'fs'
+import path from 'path';
 
 const router = express.Router();
 const ObjectId = mongoose.Types.ObjectId;
+
 
 
 const storage = multer.diskStorage({
@@ -147,5 +149,49 @@ router.post("/Pending/reg", async (req, res) => {
     res.status(500).json({ status: "error", message: "Internal Server Error" });
   }
 });
+
+router.get('/get-user-data', async (req, res) => {
+  const fileName = req.query.fileUrl;
+  if (!fileName) return res.status(400).json({ error: "Missing fileName" });
+
+  try {
+    const user = await PendingModel.findOne({ 'pdf.fileUrl': fileName });
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    res.json({
+      pageCount: user.pageCount,
+      date: user.date,
+    });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+})
+
+// Example Express.js controller
+router.post('/calculate-price', (req, res) => {
+  const { pageCount, deliveryDate } = req.body;
+  if (!pageCount || !deliveryDate) {
+    return res.status(400).json({ message: "Missing data" });
+  }
+
+  const today = new Date();
+  const delivery = new Date(deliveryDate);
+  const diffTime = delivery.getTime() - today.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  let pricePerPage = 0;
+  if (diffDays >= 9) pricePerPage = 9;
+  else if (diffDays === 8) pricePerPage = 10;
+  else if (diffDays >= 6) pricePerPage = 11.5;
+  else if (diffDays >= 4) pricePerPage = 12.5;
+  else if (diffDays >= 2) pricePerPage = 13.5;
+  else pricePerPage = 14.5;
+
+  const totalPrice = pricePerPage * parseInt(pageCount);
+
+  return res.status(200).json({ pricePerPage, totalPrice });
+});
+
 
 export default router;

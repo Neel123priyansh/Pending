@@ -57,62 +57,77 @@ const [user, setUser] = useState<{
   };
 
   // Submit Handler
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateEmail(user.email)) {
-        toast.error("Please enter a valid College Email Address");
-        return;
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!validateEmail(user.email)) {
+    toast.error("Please enter a valid College Email Address");
+    return;
+  }
+
+  if (!file) {
+    toast.error("No file selected");
+    return;
+  }
+
+  if (!user.name || !user.email || !user.phone || !user.date || !user.select) {
+    toast.error("All fields are required!");
+    return;
+  }
+
+  try {
+    // Upload the PDF file
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const fileUploadResponse = await axios.post(
+      "http://localhost:5200/Pending/upload-pdf",
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+
+    const { pageCount, pdf } = fileUploadResponse.data;
+
+    if (!pdf?.fileUrl || !pageCount) {
+      toast.error("File upload failed, missing fileUrl or page count");
+      return;
     }
 
-    if (!file) {
-        toast.error("No file selected");
-        return;
+    // Prepare user data for backend
+    const userData = {
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      date: user.date ? new Date(user.date).toISOString() : null,
+      pdf: { fileUrl: pdf.fileUrl },
+      select: user.select?.value || null,
+    };
+
+    // Save user data to MongoDB
+    const response = await axios.post(
+      "http://localhost:5200/Pending/save-user-data",
+      userData,
+      { headers: { "Content-Type": "application/json" } }
+    );
+
+    if (response.status === 200) {
+      // Save inputs needed for backend price calculation
+      localStorage.setItem("fileName", pdf.fileUrl);
+      localStorage.setItem("pageCount", pageCount.toString());
+      localStorage.setItem("deliveryDate", user.date.toISOString());
+
+      toast.success("Uploaded Successfully", {
+        onClose: () => navigate("/Check"),
+      });
+    } else {
+      toast.error(response.data.message || "Submission failed!");
     }
-    if (!user.name || !user.email || !user.phone || !user.date || !user.select) {
-        toast.error("All fields are required!");
-        return;
-    }
-    try {
-        // Upload File First
-        const formData = new FormData();
-        formData.append("file", file);
-        const fileUploadResponse = await axios.post("http://localhost:5200/Pending/upload-pdf", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-
-        console.log("File Uploaded Response:", fileUploadResponse.data);
-
-        if (!fileUploadResponse.data.pdf?.fileUrl) {
-            toast.error("File upload failed, missing fileUrl");
-            return;
-        }
-
-        // Register User Data
-        const userData = {
-          name: user.name,
-          email: user.email,
-          phone: user.phone,
-          date: user.date ? user.date.toISOString() : null,
-          pdf: { fileUrl: fileUploadResponse.data.pdf.fileUrl },
-          select: user.select?.value || null,
-        };
-
-        console.log("Sending user data:", userData); 
-
-        const response = await axios.post("http://localhost:5200/Pending/save-user-data", userData, {
-          headers: { "Content-Type": "application/json" },
-        });
-
-        if (response.status === 200) {
-            localStorage.setItem("fileName", fileName); // Store in localStorage
-            toast.success("Uploaded Successfully", { onClose: () => navigate('/Check') });
-        } else {
-            toast.error(response.data.message || "Submission failed!");
-        }
-    } catch (error) {
-        console.error("Error submitting form:", error);
-        toast.error("Submission failed, please try again");
-    }
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    toast.error("Submission failed, please try again");
+  }
 };
   // Select Options
   const options = [
@@ -173,7 +188,6 @@ const [user, setUser] = useState<{
             selected={user.date}
             onChange={handleDateChange}
             dateFormat="dd/MM/yyyy"
-            showTimeSelect
             minDate={new Date()} 
             maxDate={addDays(new Date(), 10)}        
             className="mt-3 outline-none h-12 pl-5 w-full bg-[#eaeaea] rounded-md"
