@@ -2,10 +2,26 @@ import React, { useEffect, useState } from "react";
 import Header from "../Header/header";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 // import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 export const Check = () => {
+useEffect(() => {
+  // Push a dummy entry to the history stack
+  window.history.pushState(null, "", window.location.href);
+
+  const preventBack = () => {
+    window.history.pushState(null, "", window.location.href);
+  };
+
+  window.addEventListener("popstate", preventBack);
+
+  return () => {
+    window.removeEventListener("popstate", preventBack);
+  };
+}, []);
+
   const [amount, setAmount] = useState(1);
   const [price, setPrice] = useState<number | null>(null);
   const [pdfName, setPdfName] = useState("");
@@ -13,16 +29,25 @@ export const Check = () => {
   const [error, setError] = useState("");
   const [pageCount, setPageCount] = useState<number>(0);
   const [deliveryDate, setDeliveryDate] = useState("");
-
+  const navigate = useNavigate();
   const increaseAmount = () => setAmount((prev) => prev + 1);
   const decreaseAmount = () => setAmount((prev) => (prev > 1 ? prev - 1 : 1));
+  const [isAllowed, setIsAllowed] = useState(false);
 
   useEffect(() => {
   const calculatePrice = async () => {
+
     const pageCount = localStorage.getItem("pageCount");
     const deliveryDate = localStorage.getItem("deliveryDate");
     const storedPdfName = localStorage.getItem("fileName");
     if (storedPdfName) setPdfName(storedPdfName);
+    
+    if (!storedPdfName|| !pageCount) {
+      toast.error("Please upload a file first!");
+      navigate("/Info-Page"); // 👈 Redirect to Upload page
+    } else {
+      setIsAllowed(true); // ✅ Allowed to continue
+    }
 
     if (!pageCount || !deliveryDate) {
       toast.error("Missing data for price calculation");
@@ -81,7 +106,8 @@ export const Check = () => {
                   <td className="px-6 py-4">Assignment</td>
                   <td className="px-6 py-4">{pdfName ? <p>{pdfName}</p> : <p>Loading...</p>}</td>
                   <td className="px-6 py-4">
-                    {price !== null ? `₹${(price / amount).toFixed(2)}` : "Calculating..."}
+                    <td className="px-6 py-4">{price !== null ? `₹${(price).toFixed(2)}` : "Calculating..."}
+                    </td>
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center">
