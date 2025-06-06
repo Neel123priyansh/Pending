@@ -32,20 +32,21 @@ const [user, setUser] = useState<{
 });
 
   const [file, setFile] = useState<File | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [, setIsSubmitting] = useState(false);
   const [fileName, setFileName] = useState("");
   const navigate = useNavigate();
 
   const {
     register,
-    handleSubmit: hookFormSubmit,
+    handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: yupResolver(infoSchema),
   });
 
   // Date Picker Handler
-  const handleDateChange = (dateselected: Date | null) => {
+  const handleDateChange = (dateselected: Date | null) => { 
     setUser(prevUser => ({ ...prevUser, date: dateselected }));
   };
   
@@ -74,8 +75,7 @@ const [user, setUser] = useState<{
   };
 
   // Submit Handler
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const onSubmit = async (user: any) => {
 
   if (!validateEmail(user.email)) {
     toast.error("Please enter a valid College Email Address");
@@ -91,7 +91,9 @@ const handleSubmit = async (e: React.FormEvent) => {
     toast.error("All fields are required!");
     return;
   }
+
   setIsSubmitting(true);
+  
   try {
     
     const formData = new FormData();
@@ -150,7 +152,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     console.error("Error submitting form:", error);
     toast.error("Submission failed, please try again");
   }
-};
+  };
   // Select Options
   const options = [
     { value: 'Chennai_Campus', label: 'SRM University-Chennai' },
@@ -170,7 +172,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
       {/* Right Side - Form */}
       <div className="w-1/2 flex items-center justify-center bg-white">
-        <form onSubmit={handleSubmit} {...register("file")} className="flex flex-col w-4/6 text-center py-10 px-10">
+        <form onSubmit={handleSubmit(onSubmit)} {...register("file")} className="flex flex-col w-4/6 text-center py-10 px-10">
           <p className="text-5xl font-semibold text-[#00df9a] font-Manrope">Basic Information</p>
 
           <input

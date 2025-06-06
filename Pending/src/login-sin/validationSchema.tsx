@@ -2,7 +2,12 @@
 import * as yup from "yup";
 
 export const infoSchema = yup.object().shape({
-  name: yup.string().required("Name is required"),
+  
+  name: yup.string().required("Name is required").test(
+    "no-html",
+    "HTML tags are not allowed in name",
+    (value) => !/<[^>]*>/g.test(value || "")
+  ),
   email: yup.string().email("Invalid email").required("Email is required"),
   phone: yup
     .string()
