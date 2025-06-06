@@ -8,6 +8,9 @@ import '@coreui/coreui-pro/dist/css/coreui.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { Test } from './Test/test';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { infoSchema } from "./login-sin/validationSchema";
+import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
 export const Info = () => {
@@ -30,6 +33,14 @@ const [user, setUser] = useState<{
   const [file, setFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState("");
   const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit: hookFormSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(infoSchema),
+  });
 
   // Date Picker Handler
   const handleDateChange = (dateselected: Date | null) => {
@@ -54,6 +65,10 @@ const [user, setUser] = useState<{
   const handleFile = (file: File) => {
     setFile(file);
     setFileName(file.name);
+    if (file.type !== "application/pdf") {
+      toast.error("Only PDF files are allowed.");
+    return;
+  }
   };
 
   // Submit Handler
@@ -148,11 +163,12 @@ const handleSubmit = async (e: React.FormEvent) => {
 
       {/* Right Side - Form */}
       <div className="w-1/2 flex items-center justify-center bg-white">
-        <form onSubmit={handleSubmit} className="flex flex-col w-4/6 text-center py-10 px-10">
+        <form onSubmit={handleSubmit} {...register("file")} className="flex flex-col w-4/6 text-center py-10 px-10">
           <p className="text-5xl font-semibold text-[#00df9a] font-Manrope">Basic Information</p>
 
           <input
             type="text"
+            {...register("name")}
             name="name"
             value={user.name}
             onChange={handleChange}
@@ -161,9 +177,11 @@ const handleSubmit = async (e: React.FormEvent) => {
             alt="name"
             required
           />
+          {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
 
           <input
             type="email"
+            {...register("email")}
             name="email"
             value={user.email}
             onChange={handleChange}
@@ -172,9 +190,11 @@ const handleSubmit = async (e: React.FormEvent) => {
             alt="email"
             required
           />
+          {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
 
           <input
             type="tel"
+            {...register("phone")}
             name="phone"
             value={user.phone}
             onChange={handleChange}
@@ -183,6 +203,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             alt="phone"
             required
           />
+          {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
 
           <DatePicker
             selected={user.date}
