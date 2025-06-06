@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { Test } from './Test/test';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { infoSchema } from "./login-sin/validationSchema";
+
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
@@ -31,6 +32,7 @@ const [user, setUser] = useState<{
 });
 
   const [file, setFile] = useState<File | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileName, setFileName] = useState("");
   const navigate = useNavigate();
 
@@ -89,9 +91,9 @@ const handleSubmit = async (e: React.FormEvent) => {
     toast.error("All fields are required!");
     return;
   }
-
+  setIsSubmitting(true);
   try {
-    // Upload the PDF file
+    
     const formData = new FormData();
     formData.append("file", file);
 
@@ -126,16 +128,21 @@ const handleSubmit = async (e: React.FormEvent) => {
       userData,
       { headers: { "Content-Type": "application/json" } }
     );
-
+    const toastId = toast.loading("Uploading...");
     if (response.status === 200) {
       // Save inputs needed for backend price calculation
       localStorage.setItem("fileName", pdf.fileUrl);
       localStorage.setItem("pageCount", pageCount.toString());
       localStorage.setItem("deliveryDate", user.date.toISOString());
-
-      toast.success("Uploaded Successfully", {
-        onClose: () => navigate("/Check"),
-      });
+      setTimeout(() => {
+        toast.update(toastId, {
+          render: "Uploaded Successfully ✅",
+          type: "success",
+          isLoading: false,
+          autoClose: 2000,
+          onClose: () => navigate("/Check"),
+        });
+      }, 500); // optional: smooth transition
     } else {
       toast.error(response.data.message || "Submission failed!");
     }
