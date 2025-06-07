@@ -231,6 +231,7 @@ const [user, setUser] = useState<{
             onChange={handleSelectChange}
             className="mt-3 text-left"
             name="select"
+            placeholder="Select The Campus for Delivery"
             options={options}
             required
           />

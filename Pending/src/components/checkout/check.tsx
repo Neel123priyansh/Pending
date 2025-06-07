@@ -73,7 +73,7 @@ useEffect(() => {
 
   return (
     <>
-      <Header />  
+    <Header />  
       <div className="flex h-screen items-center font-work-sans justify-center">
         <div className="w-8/12 shadow-2xl rounded-2xl h-3/5 bg-[#f7efd8]">
           <div className="bg-[#2d2d2c] flex justify-between items-center px-6 h-24 rounded-t-2xl">
