@@ -4,6 +4,7 @@ import {Home} from '../src/Home/home'
 import { Info } from './info'
 import { Check } from './components/checkout/check'
 import { PrivateRoute } from './components/checkout/PrivateRoute'
+import {OTPverf} from './components/Verification/OTPverf'
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
         </PrivateRoute>
         }
         />
+        <Route path='/Verification' element={<OTPverf/>}/>
     </Routes>
     </BrowserRouter>
     </>

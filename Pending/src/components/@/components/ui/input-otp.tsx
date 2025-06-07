@@ -1,8 +1,7 @@
 "use client"
-
 import * as React from "react"
-import { OTPInput, OTPInputContext } from "@/components/ui/input-otp"
-import { cn } from "@/lib/utils"
+import { OTPInput, OTPInputContext } from '../../../@/components/ui/input-otp'
+import { cn } from "../../../@/lib/utils"
 import { MinusIcon } from "@radix-ui/react-icons"
 
 const InputOTP = React.forwardRef<
@@ -67,4 +66,4 @@ const InputOTPSeparator = React.forwardRef<
 ))
 InputOTPSeparator.displayName = "InputOTPSeparator"
 
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }
+export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator, OTPInput }
