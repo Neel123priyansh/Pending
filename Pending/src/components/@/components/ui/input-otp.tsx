@@ -1,69 +1,71 @@
 "use client"
 import * as React from "react"
-import { OTPInput, OTPInputContext } from '../../../@/components/ui/input-otp'
-import { cn } from "../../../@/lib/utils"
-import { MinusIcon } from "@radix-ui/react-icons"
+import { OTPInput, OTPInputContext } from "input-otp"
+import { MinusIcon } from "lucide-react"
+import { cn } from "../../lib/utils"
 
-const InputOTP = React.forwardRef<
-  React.ElementRef<typeof OTPInput>,
-  React.ComponentPropsWithoutRef<typeof OTPInput>
->(({ className, containerClassName, ...props }, ref) => (
-  <OTPInput
-    ref={ref}
-    containerClassName={cn(
-      "flex items-center gap-2 has-[:disabled]:opacity-50",
-      containerClassName
-    )}
-    className={cn("disabled:yescursor-not-allowed", className)}
-    {...props}
-  />
-))
-InputOTP.displayName = "InputOTP"
-
-const InputOTPGroup = React.forwardRef<
-  React.ElementRef<"div">,
-  React.ComponentPropsWithoutRef<"div">
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("yesflex yesitems-center", className)} {...props} />
-))
-InputOTPGroup.displayName = "InputOTPGroup"
-
-const InputOTPSlot = React.forwardRef<
-  React.ElementRef<"div">,
-  React.ComponentPropsWithoutRef<"div"> & { index: number }
->(({ index, className, ...props }, ref) => {
-  const inputOTPContext = React.useContext(OTPInputContext)
-  const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index]
-
+function InputOTP({
+  className,
+  containerClassName,
+  ...props
+}: React.ComponentProps<typeof OTPInput> & {
+  containerClassName?: string
+}) {
+  return (
+    <OTPInput
+      data-slot="input-otp"
+      containerClassName={cn(
+        "flex items-center has-disabled:opacity-50",
+        containerClassName
+      )}
+      className={cn("disabled:cursor-allowed", className)}
+      {...props}
+    />
+  )
+}
+function InputOTPGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      ref={ref}
-      className={cn(
-        "yesrelative yesflex yesh-9 yesw-9 yesitems-center yesjustify-center yesborder-y yesborder-r yesborder-input yestext-sm yesshadow-sm yestransition-all first:yesrounded-l-md first:yesborder-l last:yesrounded-r-md",
-        isActive && "yesz-10 yesring-1 yesring-ring",
-        className
-      )}
+      data-slot="input-otp-group"
+      className={cn("flex items-center", className)}
+      {...props}
+    />
+  )
+}
+function InputOTPSlot({
+  index,
+  className,
+  ...props
+}: React.ComponentProps<"div"> & {
+  index: number
+}) {
+  const inputOTPContext = React.useContext(OTPInputContext)
+  const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {}
+  return (
+    <div
+      data-slot="input-otp-slot"
+      data-active={isActive}
+className={cn(
+  "data-[active=true]:border-ring data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:ring-destructive/20 dark:data-[active=true]:aria-invalid:ring-destructive/40 aria-invalid:border-destructive data-[active=true]:aria-invalid:border-destructive dark:bg-input/40 border-black relative flex h-14 w-14 items-center justify-center border-y border-r text-xl shadow-xs transition-all outline-none first:rounded-l-md first:border-l last:rounded-r-md data-[active=true]:z-10 data-[active=true]:ring-[3px]",
+  className
+)}
+
       {...props}
     >
       {char}
       {hasFakeCaret && (
-        <div className="yespointer-events-none yesabsolute yesinset-0 yesflex yesitems-center yesjustify-center">
-          <div className="yesh-4 yesw-px yesanimate-caret-blink yesbg-foreground yesduration-1000" />
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div className="animate-caret-blink h-4 w-px duration-1000 bg-black " />
         </div>
       )}
     </div>
   )
-})
-InputOTPSlot.displayName = "InputOTPSlot"
-
-const InputOTPSeparator = React.forwardRef<
-  React.ElementRef<"div">,
-  React.ComponentPropsWithoutRef<"div">
->(({ ...props }, ref) => (
-  <div ref={ref} role="separator" {...props}>
-    <MinusIcon />
-  </div>
-))
-InputOTPSeparator.displayName = "InputOTPSeparator"
-
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator, OTPInput }
+}
+function InputOTPSeparator({ ...props }: React.ComponentProps<"div">) {
+  return (
+    <div data-slot="input-otp-separator" role="separator" {...props}>
+      <MinusIcon />
+    </div>
+  )
+}
+export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }
