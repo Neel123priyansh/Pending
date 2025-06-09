@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
 import { addDays, subDays } from 'react-datepicker/dist/date_utils.d';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -10,9 +10,15 @@ import { useNavigate } from 'react-router-dom';
 import { Test } from './Test/test';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { infoSchema } from "./login-sin/validationSchema";
-
+import { auth, RecaptchaVerifier, signInWithPhoneNumber } from "./components/Verification/firebase";
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+
+declare global {
+  interface Window {
+    recaptchaVerifier?: RecaptchaVerifier;
+  }
+}
 
 export const Info = () => {
 const [user, setUser] = useState<{
@@ -35,6 +41,7 @@ const [user, setUser] = useState<{
   const [, setIsSubmitting] = useState(false);
   const [fileName, setFileName] = useState("");
   const navigate = useNavigate();
+  const [recaptchaVerifier, setRecaptchaVerifier] = useState<RecaptchaVerifier | null>(null);
 
   const {
     register,
@@ -49,7 +56,7 @@ const [user, setUser] = useState<{
   const handleDateChange = (dateselected: Date | null) => { 
     setUser(prevUser => ({ ...prevUser, date: dateselected }));
   };
-  
+
   // Email Validation
   const validateEmail = (email: string) => /^[a-zA-Z0-9._%+-]+@srmist\.edu\.in$/.test(email);
 
@@ -74,7 +81,30 @@ const [user, setUser] = useState<{
   }
   };
 
-  // Submit Handler
+  const sendOTP = async (phoneNumber: string) => {
+  try {
+    // Create recaptcha verifier only if not already created
+    if (!window.recaptchaVerifier) {
+      const verifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+        size: "invisible",
+        callback: () => {
+          console.log("Recaptcha verified");
+        },
+      });
+      setRecaptchaVerifier(verifier);
+    }
+
+    const appVerifier = window.recaptchaVerifier;
+    const confirmation = await signInWithPhoneNumber(auth, `+91${phoneNumber}`, appVerifier);
+    
+    localStorage.setItem("confirmationResult", JSON.stringify(confirmation));
+    toast.success("OTP sent successfully!");
+    navigate("/Verification"); // Go to OTP page
+  } catch (error) {
+    console.error("OTP Error:", error);
+  }
+};
+
   const onSubmit = async (user: any) => {
 
   if (!validateEmail(user.email)) {
@@ -163,6 +193,7 @@ const [user, setUser] = useState<{
 
   return (
     <div className="relative flex h-screen w-full">
+      <div id="recaptcha-container"></div>
       {/* Left Side - File Upload */}
       <div className="w-1/2 flex flex-col items-center justify-center bg-gradient-to-r from-[#3c50e0] to-[#00df9a] text-white p-10">
         <p className="text-4xl font-bold font-Manrope text-center">Upload the question paper of the assignment</p>
@@ -236,7 +267,7 @@ const [user, setUser] = useState<{
             required
           />
 
-          <button type="submit" className="mt-8 rounded-xl w-96 h-11 font-medium text-white bg-[#00df9a] mx-auto">
+          <button type="submit" onClick={() => sendOTP(user.phone)} className="mt-8 rounded-xl w-96 h-11 font-medium text-white bg-[#00df9a] mx-auto">
             NEXT STEP
           </button>
         </form>

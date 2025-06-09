@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from "../Header/header";
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
+import { auth, RecaptchaVerifier, signInWithPhoneNumber } from "../Verification/firebase";
 import {
   InputOTP,
   InputOTPGroup,
