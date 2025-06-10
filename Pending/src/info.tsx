@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DatePicker from "react-datepicker";
 import { addDays, subDays } from 'react-datepicker/dist/date_utils.d';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -16,9 +16,10 @@ import axios from 'axios';
 
 declare global {
   interface Window {
-    recaptchaVerifier?: RecaptchaVerifier;
+    recaptchaVerifier: any;
   }
 }
+
 
 export const Info = () => {
 const [user, setUser] = useState<{
@@ -45,7 +46,6 @@ const [user, setUser] = useState<{
 
   const {
     register,
-    handleSubmit,
     formState: { errors },
     setValue,
   } = useForm({
@@ -56,7 +56,7 @@ const [user, setUser] = useState<{
   const handleDateChange = (dateselected: Date | null) => { 
     setUser(prevUser => ({ ...prevUser, date: dateselected }));
   };
-
+  
   // Email Validation
   const validateEmail = (email: string) => /^[a-zA-Z0-9._%+-]+@srmist\.edu\.in$/.test(email);
 
@@ -65,6 +65,27 @@ const [user, setUser] = useState<{
     const { name, value } = e.target;
     setUser(prevUser => ({ ...prevUser, [name]: value }));
   };
+
+  const sendOTP = async (phoneNumber: string) => {
+      try {
+    const recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+      size: "invisible",
+    });
+
+    const confirmationResult = await signInWithPhoneNumber(
+      auth,
+      `+91${phoneNumber}`,
+      recaptchaVerifier
+    );
+
+    // ✅ store it safely in window object
+    (window as any).confirmationResult = confirmationResult;
+  } catch (error: any) {
+    console.error("OTP Error:", error);
+  }
+};
+
+
 
   // Select Dropdown Change Handler
   const handleSelectChange = (selectedOption: { value: string; label: string } | null) => {
@@ -80,32 +101,8 @@ const [user, setUser] = useState<{
     return;
   }
   };
-
-  const sendOTP = async (phoneNumber: string) => {
-  try {
-    // Create recaptcha verifier only if not already created
-    if (!window.recaptchaVerifier) {
-      const verifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-        size: "invisible",
-        callback: () => {
-          console.log("Recaptcha verified");
-        },
-      });
-      setRecaptchaVerifier(verifier);
-    }
-
-    const appVerifier = window.recaptchaVerifier;
-    const confirmation = await signInWithPhoneNumber(auth, `+91${phoneNumber}`, appVerifier);
-    
-    localStorage.setItem("confirmationResult", JSON.stringify(confirmation));
-    toast.success("OTP sent successfully!");
-    navigate("/Verification"); // Go to OTP page
-  } catch (error) {
-    console.error("OTP Error:", error);
-  }
-};
-
-  const onSubmit = async (user: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
   if (!validateEmail(user.email)) {
     toast.error("Please enter a valid College Email Address");
@@ -123,9 +120,10 @@ const [user, setUser] = useState<{
   }
 
   setIsSubmitting(true);
-  
+  const toastId = toast.loading("Uploading...");
+
   try {
-    
+    // 1. Upload file
     const formData = new FormData();
     formData.append("file", file);
 
@@ -140,11 +138,16 @@ const [user, setUser] = useState<{
     const { pageCount, pdf } = fileUploadResponse.data;
 
     if (!pdf?.fileUrl || !pageCount) {
-      toast.error("File upload failed, missing fileUrl or page count");
+      toast.update(toastId, {
+        render: "File upload failed",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
       return;
     }
 
-    // Prepare user data for backend
+    // 2. Save user data
     const userData = {
       name: user.name,
       email: user.email,
@@ -154,35 +157,61 @@ const [user, setUser] = useState<{
       select: user.select?.value || null,
     };
 
-    // Save user data to MongoDB
     const response = await axios.post(
       "http://localhost:5200/Pending/save-user-data",
       userData,
       { headers: { "Content-Type": "application/json" } }
     );
-    const toastId = toast.loading("Uploading...");
-    if (response.status === 200) {
-      // Save inputs needed for backend price calculation
-      localStorage.setItem("fileName", pdf.fileUrl);
-      localStorage.setItem("pageCount", pageCount.toString());
-      localStorage.setItem("deliveryDate", user.date.toISOString());
-      setTimeout(() => {
-        toast.update(toastId, {
-          render: "Uploaded Successfully ✅",
-          type: "success",
-          isLoading: false,
-          autoClose: 2000,
-          onClose: () => navigate("/Check"),
-        });
-      }, 500); // optional: smooth transition
-    } else {
-      toast.error(response.data.message || "Submission failed!");
+
+    if (response.status !== 200) {
+      toast.update(toastId, {
+        render: "Failed to save user data",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
+      return;
     }
+
+    // 3. Store locally
+    localStorage.setItem("fileName", pdf.fileUrl);
+    localStorage.setItem("pageCount", pageCount.toString());
+    localStorage.setItem("deliveryDate", user.date.toISOString());
+
+    // 4. Send OTP
+    try {
+      await sendOTP(user.phone); // Ensure this is a working Promise
+    } catch (otpError) {
+      toast.update(toastId, {
+        render: "Failed to send OTP. Please check your number.",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    // 5. Final Toast and Redirect
+    toast.update(toastId, {
+      render: "OTP sent successfully ✅",
+      type: "success",
+      isLoading: false,
+      autoClose: 1000,
+      onClose: () => navigate("/Verification"),
+    });
+
   } catch (error) {
     console.error("Error submitting form:", error);
-    toast.error("Submission failed, please try again");
+    toast.update(toastId, {
+      render: "Something went wrong",
+      type: "error",
+      isLoading: false,
+      autoClose: 3000,
+    });
+  } finally {
+    setIsSubmitting(false);
   }
-  };
+};
   // Select Options
   const options = [
     { value: 'Chennai_Campus', label: 'SRM University-Chennai' },
@@ -203,7 +232,7 @@ const [user, setUser] = useState<{
 
       {/* Right Side - Form */}
       <div className="w-1/2 flex items-center justify-center bg-white">
-        <form onSubmit={handleSubmit(onSubmit)} {...register("file")} className="flex flex-col w-4/6 text-center py-10 px-10">
+        <form onSubmit={handleSubmit} {...register("file")} className="flex flex-col w-4/6 text-center py-10 px-10">
           <p className="text-5xl font-semibold text-[#00df9a] font-Manrope">Basic Information</p>
 
           <input
@@ -262,12 +291,11 @@ const [user, setUser] = useState<{
             onChange={handleSelectChange}
             className="mt-3 text-left"
             name="select"
-            placeholder="Select The Campus for Delivery"
             options={options}
             required
           />
 
-          <button type="submit" onClick={() => sendOTP(user.phone)} className="mt-8 rounded-xl w-96 h-11 font-medium text-white bg-[#00df9a] mx-auto">
+          <button type="submit" className="mt-8 rounded-xl w-96 h-11 font-medium text-white bg-[#00df9a] mx-auto">
             NEXT STEP
           </button>
         </form>

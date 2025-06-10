@@ -5,6 +5,7 @@ import PendingModel from './user.js';
 import pdf from 'pdf-parse'
 import fs from 'fs'
 import path from 'path';
+import Razorpay from 'razorpay'
 
 const router = express.Router();
 const ObjectId = mongoose.Types.ObjectId;
@@ -192,6 +193,44 @@ router.post('/calculate-price', (req, res) => {
 
   return res.status(200).json({ pricePerPage, totalPrice });
 });
+
+router.post('/orders', async (req, res) => {
+  const razorpay = new Razorpay({
+    key_id: "rzp_test_Vgm7xXg4o6KnWQ",
+    key_secret: "cDaRH3dCv2UXAimvD0JEh77B"
+  })
+  const options = {
+    amount: req.body.amount,
+    currency: req.body.currency,
+    receipt: "trceipt#1",
+    payment_capture: 1
+  }
+
+  try {
+    const response = await razorpay.orders.create(options)
+    res.json({
+      order_id: response.id,
+      currency: response.currency,
+      amount: response.amount
+    })
+  } catch (error) {
+    res.status(500).send("Internal Server Error")
+  }
+})
+
+// router.get("/payment/:paymentId", async(req, res) => {
+//   const {paymentId} = res.params;
+//   const razorpay = new Razorpay({
+//     key_id: "rzp_test_Vgm7xXg4o6KnWQ",
+//     key_secret: "cDaRH3dCv2UXAimvD0JEh77B"
+//   })
+
+//   try {
+//     const payment = await razorpay.payments.fetch(paymentId)
+//   } catch (error) {
+    
+//   }
+// })
 
 
 export default router;

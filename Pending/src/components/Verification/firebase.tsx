@@ -1,5 +1,5 @@
 // firebase.ts
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 
 const firebaseConfig = {
@@ -12,7 +12,8 @@ const firebaseConfig = {
   measurementId: "G-PV26T9WGFW"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
+auth.useDeviceLanguage()
 
 export { auth, RecaptchaVerifier, signInWithPhoneNumber };

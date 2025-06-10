@@ -1,66 +1,63 @@
-import React, { useEffect, useState } from 'react'
-import Header from "../Header/header";
-import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
-import { auth, RecaptchaVerifier, signInWithPhoneNumber } from "../Verification/firebase";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from "../@/components/ui/input-otp"
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ConfirmationResult } from "firebase/auth";
+import { toast, ToastContainer } from "react-toastify";
 
-export const OTPverf = () => {
-    const navigate = useNavigate();
-    const [resendCountDown, setResendCountdown] = useState(0)
-    const [success, setSuccess] = useState("")
+const OTPverf: React.FC = () => {
+  const [otp, setOtp] = useState("");
+  const navigate = useNavigate();
 
-    useEffect(()=> {
-      let timer: NodeJS.Timeout;
-      if (resendCountDown > 0) {
-        timer = setTimeout(() => setResendCountdown(resendCountDown - 1), 1000)
-      }
-      return () => clearTimeout(timer)
-    }, [resendCountDown])
+  const handleOtpSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const confirmationResult = (window as any).confirmationResult;
+
+    if (!confirmationResult) {
+      toast.error("No OTP confirmation found. Please try again.");
+      return;
+    }
+
+    try {
+      const result = await confirmationResult.confirm(otp); // ✅ verify OTP
+      const user = result.user;
+      toast.success("Phone verified successfully ✅");
+      setTimeout(() => {
+        navigate("/Check"); // Navigate to next step/page
+      }, 2000);
+    } catch (error) {
+      console.error("OTP verification failed:", error);
+      toast.error("Invalid OTP. Please try again.");
+    }
+  };
 
   return (
-    <>
-        <div className="flex h-screen items-center font-work-sans justify-center">
-        <div className="w-2/5 shadow-2xl rounded-2xl h-3/5 p-6 bg-[#f7efd8]">
-          <p className="text-[#00df9a] font-sans font-medium text-5xl">
-            OTP Verification
-          </p>
-          <p className="text-[#74ef8d] font-sans text-lg mt-2">
-            Please enter the OTP sent to your phone number to complete your verification
-          </p>
-            <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
-              <InputOTPGroup className="justify-center px-28 mt-4"> {/* 👈 center and add spacing */}
-                <InputOTPSlot index={0} />
-                <InputOTPSlot index={1} />
-                <InputOTPSlot index={2} />
-                <InputOTPSlot index={3} />
-                <InputOTPSlot index={4} />
-                <InputOTPSlot index={5} />
-              </InputOTPGroup>
-            </InputOTP>
-            <div className='flex flex-row justify-between mt-2'>
-              <p>Remaining Time</p>
-              <p>Didn't get the code?</p>
-            </div>
-          <button
-            className="mt-9 w-full bg-[#00df9a] font-sans text-white font-bold py-2 px-4 rounded-full transition-all duration-200">
-            Verify
-          </button>
-          <button
-            className="mt-6 w-full border-[#00df9a] font-sans border-2 text-[#00df9a] font-bold py-2 px-4 rounded-full transition-all duration-200">
-            Cancel
-          </button>
-        </div>
-      </div>
-    </>
-  )
-}
+    <div className="flex items-center justify-center h-screen bg-[#f9f9f9]">
+      <form
+        onSubmit={handleOtpSubmit}
+        className="flex flex-col bg-white p-10 rounded-lg shadow-lg w-full max-w-md"
+      >
+        <h1 className="text-3xl font-bold text-center mb-4 text-[#00df9a]">Verify OTP</h1>
 
-export default OTPverf
+        <input
+          type="text"
+          maxLength={6}
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          placeholder="Enter 6-digit OTP"
+          className="border rounded-md px-4 py-3 text-lg text-center tracking-widest focus:outline-none"
+          required
+        />
 
+        <button
+          type="submit"
+          className="bg-[#00df9a] text-white mt-6 py-3 text-lg font-semibold rounded-md hover:bg-[#00c78c] transition"
+        >
+          Verify
+        </button>
+      </form>
 
+      <ToastContainer />
+    </div>
+  );
+};
+
+export default OTPverf;

@@ -4,7 +4,7 @@ import {Home} from '../src/Home/home'
 import { Info } from './info'
 import { Check } from './components/checkout/check'
 import { PrivateRoute } from './components/checkout/PrivateRoute'
-import {OTPverf} from './components/Verification/OTPverf'
+import OTPverf from './components/Verification/OTPverf'
 
 
 const App = () => {
