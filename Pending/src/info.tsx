@@ -93,7 +93,7 @@ const [user, setUser] = useState<{
 
 
   // Select Dropdown Change Handler
-  const handleSelectChange = (selectedOption: { value: string; label: string } | null) => {
+const handleSelectChange = (selectedOption: { value: string; label: string } | null) => {
     setUser(prevUser => ({ ...prevUser, select: selectedOption }));
   };
 
@@ -106,9 +106,11 @@ const [user, setUser] = useState<{
     return;
   }
   };
+
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
+  // Basic form validation
   if (!validateEmail(user.email)) {
     toast.error("Please enter a valid College Email Address");
     return;
@@ -125,116 +127,81 @@ const [user, setUser] = useState<{
   }
 
   setIsSubmitting(true);
-  const toastId = toast.loading("Uploading...");
 
-  try {
-    // 1. Upload file
-    const formData = new FormData();
-    formData.append("file", file);
+  await toast.promise(
+    (async () => {
+      // 1. Upload the file
+      const formData = new FormData();
+      formData.append("file", file);
 
-    const fileUploadResponse = await axios.post(
-      "http://localhost:5200/Pending/upload-pdf",
-      formData,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
+      const fileUploadResponse = await axios.post(
+        "http://localhost:5200/Pending/upload-pdf",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      const { pageCount, pdf } = fileUploadResponse.data;
+
+      if (!pdf?.fileUrl || !pageCount) {
+        throw new Error("File upload failed");
       }
-    );
 
-    const { pageCount, pdf } = fileUploadResponse.data;
+      // 2. Save user data to backend
+      const userData = {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        date: user.date ? new Date(user.date).toISOString() : null,
+        pdf: { fileUrl: pdf.fileUrl },
+        select: user.select?.value || null,
+      };
 
-    if (!pdf?.fileUrl || !pageCount) {
-      toast.update(toastId, {
-        render: "File upload failed",
-        type: "error",
-        isLoading: false,
-        autoClose: 3000,
-      });
-      return;
-    }
+      const response = await axios.post(
+        "http://localhost:5200/Pending/save-user-data",
+        userData,
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-    // 2. Save user data
-    const userData = {
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-      date: user.date ? new Date(user.date).toISOString() : null,
-      pdf: { fileUrl: pdf.fileUrl },
-      select: user.select?.value || null,
-    };
+      if (response.status !== 200) {
+        throw new Error("Failed to save user data");
+      }
 
-    const response = await axios.post(
-      "http://localhost:5200/Pending/save-user-data",
-      userData,
-      { headers: { "Content-Type": "application/json" } }
-    );
-
-    if (response.status !== 200) {
-      toast.update(toastId, {
-        render: "Failed to save user data",
-        type: "error",
-        isLoading: false,
-        autoClose: 3000,
-      });
-      return;
-    }
-
-    if(response.status === 200){
+      // 3. Save to localStorage
       localStorage.setItem("fileName", pdf.fileUrl);
       localStorage.setItem("pageCount", pageCount.toString());
-      localStorage.setItem("deliveryDate", user.date.toISOString());
+      const deliveryDateISO = user.date ? new Date(user.date).toISOString() : null;
+      if (!deliveryDateISO) {
+        throw new Error("Invalid or missing delivery date");
+      }
+      localStorage.setItem("deliveryDate", deliveryDateISO);
 
+      // 4. Send OTP
       try {
-        await sendOTP(user.phone); 
-      } 
-      catch (otpError) {
-      // toast.update(toastId, {
-      //   render: "Failed to send OTP. Please check your number.",
-      //   type: "error",
-      //   isLoading: false,
-      //   autoClose: 3000,
-      // });
+        await sendOTP(user.phone); // must throw on failure
+      } catch (otpError) {
+        throw new Error("Failed to send the OTP, check the number");
+      }
 
-
-      return;
-    }
-    toast.promise(resolveAfter3Sec, {
-        pending: 'Uploading the data is pending',
-        success: {
-          render() {
-            setTimeout(() => navigate("/Verification"), 1000);
-            return "Data Uploaded 👌";
+      // 5. Delay navigation slightly to let toast finish
+      setTimeout(() => navigate("/Verification"), 1000);
+    })(),
+    {
+      pending: "Uploading your data and sending OTP...",
+      success: "Data uploaded and OTP sent ✅",
+      error: {
+        render({ data }: any) {
+          return `❌ ${data?.message || "Something went wrong"}`;
         },
       },
-      error: 'Uploading rejected 🤯',
-    });
     }
-    else{
-      try {
-        await sendOTP(user.phone); // Ensure this is a working Promise
-      } 
-      catch (otpError) {
-      toast.update(toastId, {
-        render: "Failed to send OTP. Please check your number.",
-        type: "error",
-        isLoading: false,
-        autoClose: 3000,
-      });
-      return;
-    }
-    }
+  );
 
-  } catch (error) {
-    console.error("Error submitting form:", error);
-    toast.update(toastId, {
-      render: "Something went wrong",
-      type: "error",
-      isLoading: false,
-      autoClose: 3000,
-    });
-  } finally {
-    setIsSubmitting(false);
-  }
+  setIsSubmitting(false);
 };
+
+
   // Select Options
   const options = [
     { value: 'Chennai_Campus', label: 'SRM University-Chennai' },
