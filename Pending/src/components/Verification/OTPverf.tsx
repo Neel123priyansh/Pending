@@ -1,11 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ConfirmationResult } from "firebase/auth";
 import { toast, ToastContainer } from "react-toastify";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "../@/components/ui/input-otp"
 
 const OTPverf: React.FC = () => {
+  const [timeLeft, setTimeLeft] = useState(120);
+  const [canResend, setCanResend] = useState(false);
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      setCanResend(true);
+      return;
+    }
+    const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [timeLeft]);
+
+  const handleResend = async () => {
+    try {
+      await resendOtp(); // Your resend function
+      toast.success("OTP resent successfully!");
+      setTimeLeft(120);
+      setCanResend(false);
+    } catch (error) {
+      toast.error("Failed to resend OTP");
+    }
+  };
+
+  const formatTime = (sec: number) => {
+    const min = Math.floor(sec / 60);
+    const seconds = sec % 60;
+    return `${min}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
 
   const handleOtpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,28 +63,48 @@ const OTPverf: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-[#f9f9f9]">
+    <div className="flex items-center justify-center h-screen bg-[#f7efd8]">
       <form
         onSubmit={handleOtpSubmit}
-        className="flex flex-col bg-white p-10 rounded-lg shadow-lg w-full max-w-md"
-      >
-        <h1 className="text-3xl font-bold text-center mb-4 text-[#00df9a]">Verify OTP</h1>
-
-        <input
-          type="text"
-          maxLength={6}
-          value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-          placeholder="Enter 6-digit OTP"
-          className="border rounded-md px-4 py-3 text-lg text-center tracking-widest focus:outline-none"
-          required
-        />
-
+        className="flex flex-col bg-white p-5 rounded-lg shadow-lg w-full max-w-md">
+        <h1 className="text-3xl font-bold text-left mb-1 text-[#00df9a]">Verify Your Phone Number</h1>
+        <h1 className="text-xs font-mono text-left mb-4 text-black">Please enter the OTP sent to your registered phone number to complete your verification</h1>
+        <div className="flex flex-col mt-3 ml-2">
+          <InputOTP maxLength={6}>
+            <InputOTPGroup>
+              <InputOTPSlot index={0} />
+              <InputOTPSlot index={1} />
+          </InputOTPGroup>
+          <InputOTPSeparator />
+          <InputOTPGroup>
+            <InputOTPSlot index={2} />
+            <InputOTPSlot index={3} />
+          </InputOTPGroup>
+          <InputOTPSeparator />
+          <InputOTPGroup>
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+          </InputOTP>
+        </div>  
+        <div className="flex flex-row text-xs justify-between mt-3">
+          <p>Remaining Time: {formatTime(timeLeft)}</p>
+          <p className="flex flex-row gap-1">Didn't get the code?
+            <button type="button"
+            className="text-blue-500 hover:underline"
+            disabled={!canResend}
+            onClick={handleResend}>{canResend ? "Resend Code" : "Resend Disabled"}</button>
+          </p>
+        </div>
         <button
           type="submit"
-          className="bg-[#00df9a] text-white mt-6 py-3 text-lg font-semibold rounded-md hover:bg-[#00c78c] transition"
-        >
+          className="bg-[#00df9a] rounded-full text-white mt-14 py-2 text-xl font-semibold hover:bg-[#00c78c] transition">
           Verify
+        </button>
+        <button
+          type="submit"
+          className="bg-white border-2 border-[#00df9a] mt-3 py-2 text-xl text-[#00df9a] font-semibold rounded-full hover:bg-[#00c78c] transition">
+          Cancel
         </button>
       </form>
 
@@ -61,3 +114,7 @@ const OTPverf: React.FC = () => {
 };
 
 export default OTPverf;
+function resendOtp() {
+  throw new Error("Function not implemented.");
+}
+
