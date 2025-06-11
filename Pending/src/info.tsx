@@ -19,6 +19,11 @@ declare global {
     recaptchaVerifier: any;
   }
 }
+const resolveAfter3Sec = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("Success");
+  }, 3000); 
+});
 
 
 export const Info = () => {
@@ -173,15 +178,41 @@ const [user, setUser] = useState<{
       return;
     }
 
-    // 3. Store locally
-    localStorage.setItem("fileName", pdf.fileUrl);
-    localStorage.setItem("pageCount", pageCount.toString());
-    localStorage.setItem("deliveryDate", user.date.toISOString());
+    if(response.status === 200){
+      localStorage.setItem("fileName", pdf.fileUrl);
+      localStorage.setItem("pageCount", pageCount.toString());
+      localStorage.setItem("deliveryDate", user.date.toISOString());
 
-    // 4. Send OTP
-    try {
-      await sendOTP(user.phone); // Ensure this is a working Promise
-    } catch (otpError) {
+      try {
+        await sendOTP(user.phone); 
+      } 
+      catch (otpError) {
+      // toast.update(toastId, {
+      //   render: "Failed to send OTP. Please check your number.",
+      //   type: "error",
+      //   isLoading: false,
+      //   autoClose: 3000,
+      // });
+
+
+      return;
+    }
+    toast.promise(resolveAfter3Sec, {
+        pending: 'Uploading the data is pending',
+        success: {
+          render() {
+            setTimeout(() => navigate("/Verification"), 1000);
+            return "Data Uploaded 👌";
+        },
+      },
+      error: 'Uploading rejected 🤯',
+    });
+    }
+    else{
+      try {
+        await sendOTP(user.phone); // Ensure this is a working Promise
+      } 
+      catch (otpError) {
       toast.update(toastId, {
         render: "Failed to send OTP. Please check your number.",
         type: "error",
@@ -190,15 +221,7 @@ const [user, setUser] = useState<{
       });
       return;
     }
-
-    // 5. Final Toast and Redirect
-    toast.update(toastId, {
-      render: "OTP sent successfully ✅",
-      type: "success",
-      isLoading: false,
-      autoClose: 1000,
-      onClose: () => navigate("/Verification"),
-    });
+    }
 
   } catch (error) {
     console.error("Error submitting form:", error);
