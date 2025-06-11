@@ -8,6 +8,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "../@/components/ui/input-otp"
+import Headerwo from "../Header/header_wo";
 
 const OTPverf: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(120);
@@ -63,6 +64,8 @@ const OTPverf: React.FC = () => {
   };
 
   return (
+    <>
+    <Headerwo />
     <div className="flex items-center justify-center h-screen bg-[#f7efd8]">
       <form
         onSubmit={handleOtpSubmit}
@@ -74,26 +77,26 @@ const OTPverf: React.FC = () => {
             <InputOTPGroup>
               <InputOTPSlot index={0} />
               <InputOTPSlot index={1} />
-          </InputOTPGroup>
-          <InputOTPSeparator />
-          <InputOTPGroup>
-            <InputOTPSlot index={2} />
-            <InputOTPSlot index={3} />
-          </InputOTPGroup>
-          <InputOTPSeparator />
-          <InputOTPGroup>
-            <InputOTPSlot index={4} />
-            <InputOTPSlot index={5} />
-          </InputOTPGroup>
+            </InputOTPGroup>
+            <InputOTPSeparator />
+            <InputOTPGroup>
+              <InputOTPSlot index={2} />
+              <InputOTPSlot index={3} />
+            </InputOTPGroup>
+            <InputOTPSeparator />
+            <InputOTPGroup>
+              <InputOTPSlot index={4} />
+              <InputOTPSlot index={5} />
+            </InputOTPGroup>
           </InputOTP>
-        </div>  
+        </div>
         <div className="flex flex-row text-xs justify-between mt-3">
           <p>Remaining Time: {formatTime(timeLeft)}</p>
           <p className="flex flex-row gap-1">Didn't get the code?
             <button type="button"
-            className="text-blue-500 hover:underline"
-            disabled={!canResend}
-            onClick={handleResend}>{canResend ? "Resend Code" : "Resend Disabled"}</button>
+              className="text-blue-500 hover:underline"
+              disabled={!canResend}
+              onClick={handleResend}>{canResend ? "Resend Code" : "Resend Disabled"}</button>
           </p>
         </div>
         <button
@@ -109,7 +112,7 @@ const OTPverf: React.FC = () => {
       </form>
 
       <ToastContainer />
-    </div>
+    </div></>
   );
 };
 
