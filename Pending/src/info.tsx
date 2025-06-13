@@ -77,22 +77,13 @@ const [user, setUser] = useState<{
       size: "invisible",
     });
 
-    const confirmationResult = await signInWithPhoneNumber(
-      auth,
-      `+91${phoneNumber}`,
-      recaptchaVerifier
-    );
-
-    // ✅ store it safely in window object
+    const confirmationResult = await signInWithPhoneNumber(auth, `+91${phoneNumber}`,recaptchaVerifier);
     (window as any).confirmationResult = confirmationResult;
   } catch (error: any) {
     console.error("OTP Error:", error);
   }
 };
 
-
-
-  // Select Dropdown Change Handler
 const handleSelectChange = (selectedOption: { value: string; label: string } | null) => {
     setUser(prevUser => ({ ...prevUser, select: selectedOption }));
   };

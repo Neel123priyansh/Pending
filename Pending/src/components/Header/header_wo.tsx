@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useNavigate} from "react-router-dom" 
 import about from "../About/about";
+
 export default function headerwo() {
   const navigate = useNavigate()
   const aboutus = useRef(null);

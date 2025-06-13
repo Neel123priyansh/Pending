@@ -5,10 +5,11 @@ import { FaMinus, FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 // import { useParams } from "react-router-dom";
 import axios from "axios";
+import Confirmation from "./confirmation";
 import { toast } from "react-toastify";
-import header from "../Header/header";
-import { Currency } from "lucide-react";
-import { colors } from "node_modules/react-select/dist/declarations/src/theme";
+import Headerwo from "../Header/header_wo";
+
+
 export const Check = () => {
 useEffect(() => {
   // Push a dummy entry to the history stack
@@ -28,16 +29,12 @@ useEffect(() => {
   const [amount, setAmount] = useState(1);
   const [price, setPrice] = useState<number | null>(null);
   const [pdfName, setPdfName] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [pageCount, setPageCount] = useState<number>(0);
-  const [deliveryDate, setDeliveryDate] = useState("");
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const navigate = useNavigate();
   const increaseAmount = () => setAmount((prev) => prev + 1);
   const decreaseAmount = () => setAmount((prev) => (prev > 1 ? prev - 1 : 1));
   const [isAllowed, setIsAllowed] = useState(false);
   const [responseId, setResponseId] = React.useState("");
-  const [responseState, setResponseState] = React.useState([])
 
   const loadScript = (src: string): Promise<boolean> => {
   return new Promise((resolve) => {
@@ -147,6 +144,7 @@ const handleRazorpayScreen = async (amount: number) => {
     description: "Payment for PDF service",
     handler: function (response: { razorpay_payment_id: string }) {
       setResponseId(response.razorpay_payment_id);
+      setShowConfirmation(true); 
   
       localStorage.removeItem("fileName");
       localStorage.removeItem("pageCount");
@@ -168,7 +166,13 @@ const handleRazorpayScreen = async (amount: number) => {
 
   return (
     <>
-    <Header />  
+    <Headerwo />  
+    {showConfirmation && (
+    <>
+      <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"></div>
+      <Confirmation />
+    </>
+  )}
       <div className="flex h-screen items-center font-work-sans justify-center">
         <div className="w-8/12 shadow-2xl rounded-2xl h-3/5 bg-[#f7efd8]">
           <div className="bg-[#2d2d2c] flex justify-between items-center px-6 h-24 rounded-t-2xl">
