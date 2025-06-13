@@ -13,7 +13,7 @@ export const Home = () => {
     <>
     <Header/>
     <Main/>
-    <Cad/>
+    <Card/>
     <About/>
     <Why/>
     <Logo/>
