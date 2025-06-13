@@ -7,7 +7,7 @@ import fs from 'fs'
 import path from 'path';
 import Razorpay from 'razorpay'
 
-const router = express.Router();
+const router = 
 const ObjectId = mongoose.Types.ObjectId;
 
 
