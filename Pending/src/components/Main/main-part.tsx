@@ -2,7 +2,7 @@ import { ReactTyped } from 'react-typed'
 
 export default function main() {
   return (
-    <div className='text-[#3B82F6] flex flex-col justify-center'>
+    <div className='text-[#3ccfa1] flex flex-col justify-center'>
         <div className='max-w-[100%] text-center mt-[155px] w-full h-10 flex justify-center items-center font-work-sans font-[900] md:text-5xl sm:text-4xl'> 
          Turning Tasks into Triumphs!  
         </div>
