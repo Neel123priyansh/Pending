@@ -10,7 +10,7 @@ export default function header() {
         <h1 onClick={() => navigate('/')} className='text-5xl font-bold text-[#00df9a] ml-10'>Pending.</h1>
         <ul className='flex flex-row text-lg text-[#111827]  gap-8 mr-[460px]'>
           <li className='p-4 hover:border-b-2 hover:border-[#00df9a] hover:border-opacity-60'>Home</li>
-          <li  className='p-4 hover:border-b-2 hover:border-[#00df9a] hover:border-opacity-10 '>About Us</li>
+          <li  className='p-4 hover:border-b-2 hover:border-[#00df9a] hover:border-opacity-60 '>About Us</li>
           <li className='p-4 hover:border-b-2 hover:border-[#00df9a] hover:border-opacity-60'>Price</li >
           <li className='p-4 hover:border-b-2 hover:border-[#00df9a] hover:border-opacity-60'>Contact Us</li>
         </ul>
