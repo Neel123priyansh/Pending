@@ -22,10 +22,10 @@ const defaultOptions = {
 function main_part_card() {
     const navigate = useNavigate()
   return (
-    <div className='flex flex-row justify-between items-center mt-[10px] bg-black rounded-2xl max-w-[100%] h-[100%]'>
+    <div className='flex flex-row justify-evenly items-center bg-black rounded-2xl max-w-[100%] h-[100%]'>
        <button onClick={() => navigate('Info-Page') }>
         <Tilt options={defaultOptions}>
-            <div className='h-[320px] rounded-2xl w-[240px] font-work-sans text-2xl text-white bg-[#6B7280] ml-10'>
+            <div className='h-[320px] rounded-2xl w-[240px] font-work-sans text-2xl text-white bg-[#6B7280]'>
             <img className='rounded-t-2xl ' src={Ass}/>
             <p className='pr-16 pt-2'>Assingment</p> 
         </div>
