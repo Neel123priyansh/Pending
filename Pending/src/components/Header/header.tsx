@@ -11,7 +11,7 @@ export default function header() {
         <ul className='flex flex-row text-lg text-[#111827]  gap-8 mr-[460px]'>
           <li className='p-4 hover:border-b-2 hover:border-[#00df9a] hover:border-opacity-60'>Home</li>
           <li  className='p-4 hover:border-b-2 hover:border-[#00df9a] hover:border-opacity-60 '>About Us</li>
-          <li className='p-4 hover:border-b-2 hover:border-[#00df9a] hover:bordr-opacity-60'>Price</li >
+          <li className='p-4 hover:border-b-2 hover:border-[#00df9a] hover:border-opacity-60'>Price</li >
           <li className='p-4 hover:border-b-2 hover:border-[#00df9a] hover:border-opacity-60'>Contact Us</li>
         </ul>
     </div>
