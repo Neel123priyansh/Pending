@@ -11,6 +11,8 @@ export default {
         'playfair-roman': ['"Playfair Display Roman"', 'serif'],
         'inter': ['"Inter"', 'sans-serif'],
         'roboto': ['"Roboto"', 'sans-serif'],
+        'cormorant': [ '"Cormorant Garamond"', 'serif'],
+        'urbanist': ['"Urbanist"', 'sans-serif'],
       },
       animation: {
         "meteor-effect": "meteor 5s linear infinite",

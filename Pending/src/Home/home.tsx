@@ -14,9 +14,9 @@ export const Home = () => {
     <Header/>
     <Main/>
     <Card/>
+    <Logo/>
     <About/>
     <Why/>
-    <Logo/>
     <Step/>
     </>
   )

@@ -24,10 +24,10 @@ function main_part_card() {
     const navigate = useNavigate()
   return (
     <div className= 'mx-7 pb-12 pt-10 overflow-hidden px-10 gap-10 relative rounded-3xl bg-[#000000] max-w-[100%] h-[100%]'>
-        <Vortex particleCount={100} rangeY={800}>
+        <Vortex particleCount={100} rangeY={800} baseHue={180}>
        <button onClick={() => navigate('Info-Page') }>
         <Tilt options={defaultOptions}>
-            <div className='h-[320px] rounded-2xl w-[240px] font-inter ml-20 text-3xl text-white bg-[#301934]'>
+            <div className='h-[320px] rounded-2xl w-[240px] font-urbanist ml-20 text-3xl text-white bg-[#301934]'>
             <img className='rounded-t-2xl ' src={Ass}/>
             <p className='text-center pt-2'>Assingment</p> 
         </div>
@@ -35,20 +35,20 @@ function main_part_card() {
         </button>
         <button>
             <Tilt options={defaultOptions}>
-            <div className='h-[320px] rounded-2xl mt-12 w-[240px] text-3xl font-inter text-white bg-[#301934] mx-20 '>
+            <div className='h-[320px] rounded-2xl mt-12 w-[240px] text-3xl font-urbanist text-white bg-[#301934] mx-20 '>
             <img className='rounded-t-2xl' src={Lab}/>
             <p className='text-center pt-2'>Lab File</p>
         </div></Tilt></button>
-        <button> <Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-3xl text-white bg-[#301934] font-inter '>
+        <button> <Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-3xl text-white bg-[#301934] font-urbanist '>
             <img className='rounded-t-2xl' src={Mini}/>
             <p className='text-center pt-2'>Mini-Project</p>
         </div></Tilt></button>
-        <button><Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-3xl ml-20  text-white bg-[#301934] font-inter'>
+        <button><Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-3xl ml-20  text-white bg-[#301934] font-urbanist'>
             <img className='rounded-t-2xl' src={Major}/>
             <p className='text-center pt-2'>Major-Project</p>
         </div></Tilt></button>
 
-        <p className='text-white pt-32 text-5xl text-center font-playfair'>Explore our services and choose the one that best fits your journey.
+        <p className='text-white pt-32 text-5xl text-center font-urbanist'>Explore our services and choose the one that best fits your journey.
 Whether it's assignments, lab work, or projects we've got you covered!</p>
         </Vortex>
     </div>
