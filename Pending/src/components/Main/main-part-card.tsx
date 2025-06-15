@@ -27,7 +27,7 @@ function main_part_card() {
         <Vortex particleCount={100} rangeY={800}>
        <button onClick={() => navigate('Info-Page') }>
         <Tilt options={defaultOptions}>
-            <div className='h-[320px] rounded-2xl w-[240px] font-inter ml-20 text-3xl text-[] bg-[#e4dddd]'>
+            <div className='h-[320px] rounded-2xl w-[240px] font-inter ml-20 text-2xl text-white bg-[#303640]'>
             <img className='rounded-t-2xl ' src={Ass}/>
             <p className='pr-16 pt-2'>Assingment</p> 
         </div>
