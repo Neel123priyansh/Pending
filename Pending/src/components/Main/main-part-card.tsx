@@ -27,25 +27,25 @@ function main_part_card() {
         <Vortex particleCount={100} rangeY={800}>
        <button onClick={() => navigate('Info-Page') }>
         <Tilt options={defaultOptions}>
-            <div className='h-[320px] rounded-2xl w-[240px] font-inter ml-20 text-2xl text-white bg-[#303640]'>
+            <div className='h-[320px] rounded-2xl w-[240px] font-inter ml-20 text-3xl text-white bg-[#301934]'>
             <img className='rounded-t-2xl ' src={Ass}/>
-            <p className='pr-16 pt-2'>Assingment</p> 
+            <p className='text-center pt-2'>Assingment</p> 
         </div>
         </Tilt>
         </button>
         <button>
             <Tilt options={defaultOptions}>
-            <div className='h-[320px] rounded-2xl mt-12 w-[240px] text-3xl font-inter text-white bg-[#303640] mx-20 '>
+            <div className='h-[320px] rounded-2xl mt-12 w-[240px] text-3xl font-inter text-white bg-[#301934] mx-20 '>
             <img className='rounded-t-2xl' src={Lab}/>
             <p className='text-center pt-2'>Lab File</p>
         </div></Tilt></button>
-        <button> <Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-2xl text-white bg-[#303640] font-work-sans '>
+        <button> <Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-3xl text-white bg-[#301934] font-inter '>
             <img className='rounded-t-2xl' src={Mini}/>
-            <p className='pr-16 pt-2'>Mini-Project</p>
+            <p className='text-center pt-2'>Mini-Project</p>
         </div></Tilt></button>
-        <button><Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-2xl ml-20  text-white bg-[#303640] font-work-sans'>
+        <button><Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-3xl ml-20  text-white bg-[#301934] font-inter'>
             <img className='rounded-t-2xl' src={Major}/>
-            <p className='pr-16 pt-2'>Major-Project</p>
+            <p className='text-center pt-2'>Major-Project</p>
         </div></Tilt></button>
 
         <p className='text-white pt-32 text-5xl text-center font-playfair'>Explore our services and choose the one that best fits your journey.

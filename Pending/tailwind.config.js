@@ -10,6 +10,7 @@ export default {
         'playfair': ['"Playfair Display"', 'serif'],
         'playfair-roman': ['"Playfair Display Roman"', 'serif'],
         'inter': ['"Inter"', 'sans-serif'],
+        'roboto': ['"Roboto"', 'sans-serif'],
       },
       animation: {
         "meteor-effect": "meteor 5s linear infinite",
