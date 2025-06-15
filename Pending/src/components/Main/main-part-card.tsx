@@ -48,8 +48,8 @@ function main_part_card() {
             <p className='pr-16 pt-2'>Major-Project</p>
         </div></Tilt></button>
 
-        <p className='text-white pt-32 text-5xl text-center font-inter'>Explore our services and choose the one that best fits your journey.
-Whether it's assignments, lab work, or projects — we've got you covered!</p>
+        <p className='text-white pt-32 text-5xl text-center font-playfair'>Explore our services and choose the one that best fits your journey.
+Whether it's assignments, lab work, or projects we've got you covered!</p>
         </Vortex>
     </div>
   )
