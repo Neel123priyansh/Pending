@@ -35,7 +35,7 @@ function main_part_card() {
         </button>
         <button>
             <Tilt options={defaultOptions}>
-            <div className='h-[320px] rounded-2xl mt-12 w-[240px] text-2xl font-inter text-white bg-[#303640] mx-20 '>
+            <div className='h-[320px] rounded-2xl mt-12 w-[240px] text-3xl font-inter text-white bg-[#303640] mx-20 '>
             <img className='rounded-t-2xl' src={Lab}/>
             <p className='text-center pt-2'>Lab File</p>
         </div></Tilt></button>
