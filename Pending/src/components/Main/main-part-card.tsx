@@ -4,6 +4,8 @@ import Mini from '../../assets/Mini.jpeg'
 import Major from '../../assets/Major.jpeg'
 import { Tilt } from 'react-tilt'
 import { useNavigate} from "react-router-dom" 
+import React from "react";
+import { Vortex } from "../ui/vortex";
 
 const defaultOptions = {
 	reverse:        false,  // reverse the tilt direction
