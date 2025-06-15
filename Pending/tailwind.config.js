@@ -8,6 +8,7 @@ export default {
       fontFamily: {
         'work-sans': ['"Work Sans"', 'sans-serif'],
         'playfair': ['"Playfair Display"', 'serif'],
+        'playfair-roman': ['"Playfair Display"', 'serif'],
       },
       animation: {
         "meteor-effect": "meteor 5s linear infinite",
