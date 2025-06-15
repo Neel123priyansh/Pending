@@ -6,7 +6,7 @@ function logo() {
   return (
     <div className="w-100% gap-20 my-40 h-max items-center px-40  flex flex-col">
       <p className='font-urbanist text-5xl text-[#301934] -tracking-tighter'>TRUSTED BY STUDENTS AT</p>
-      <div className='flex flex-row gap-20'>
+      <div className='flex flex-row gap-20 anima'>
         <img src={srm} className='h-20'/>
         <img src={srmncr} className='h-20'/>
         <img src={srmsoni} className='h-20'/>
