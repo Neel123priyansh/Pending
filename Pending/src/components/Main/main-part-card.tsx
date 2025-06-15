@@ -23,8 +23,8 @@ const defaultOptions = {
 function main_part_card() {
     const navigate = useNavigate()
   return (
-    <div className= 'mx-7 py-14 overflow-hidden px-10 gap-10 relative justify-evenly rounded-2xl max-w-[100%] h-[100%]'>
-        <Vortex particleCount={150}>
+    <div className= 'mx-7 pb-12 pt-10 overflow-hidden px-10 gap-10 relative rounded-3xl bg-[#000000] max-w-[100%] h-[100%]'>
+        <Vortex particleCount={100} rangeY={800}>
        <button onClick={() => navigate('Info-Page') }>
         <Tilt options={defaultOptions}>
             <div className='h-[320px] rounded-2xl w-[240px] font-work-sans ml-20 text-2xl text-white bg-[#6B7280]'>
@@ -35,7 +35,7 @@ function main_part_card() {
         </button>
         <button>
             <Tilt options={defaultOptions}>
-            <div className='h-[320px] rounded-2xl w-[240px] text-2xl font-work-sans text-white bg-[#6B7280] mx-20 '>
+            <div className='h-[320px] rounded-2xl mt-12 w-[240px] text-2xl font-work-sans text-white bg-[#6B7280] mx-20 '>
             <img className='rounded-t-2xl' src={Lab}/>
             <p className='pr-20 pt-2'>Lab File</p>
         </div></Tilt></button>
@@ -47,6 +47,9 @@ function main_part_card() {
             <img className='rounded-t-2xl' src={Major}/>
             <p className='pr-16 pt-2'>Major-Project</p>
         </div></Tilt></button>
+
+        <p className='text-white pt-32 text-5xl text-center font-inter'>Explore our services and choose the one that best fits your journey.
+Whether it's assignments, lab work, or projects — we've got you covered!</p>
         </Vortex>
     </div>
   )
