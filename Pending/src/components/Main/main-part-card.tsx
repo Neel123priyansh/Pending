@@ -35,15 +35,15 @@ function main_part_card() {
         </button>
         <button>
             <Tilt options={defaultOptions}>
-            <div className='h-[320px] rounded-2xl mt-12 w-[240px] text-2xl font-work-sans text-white bg-[#6B7280] mx-20 '>
+            <div className='h-[320px] rounded-2xl mt-12 w-[240px] text-2xl font-work-sans text-white bg-[#303640] mx-20 '>
             <img className='rounded-t-2xl' src={Lab}/>
             <p className='pr-20 pt-2'>Lab File</p>
         </div></Tilt></button>
-        <button> <Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-2xl text-white font-work-sans bg-[#6B7280]'>
+        <button> <Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-2xl text-white bg-[#303640] font-work-sans '>
             <img className='rounded-t-2xl' src={Mini}/>
             <p className='pr-16 pt-2'>Mini-Project</p>
         </div></Tilt></button>
-        <button><Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-2xl ml-20 text-white bg-[#6B7280] font-work-sans'>
+        <button><Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-2xl ml-20  text-white bg-[#303640] font-work-sans'>
             <img className='rounded-t-2xl' src={Major}/>
             <p className='pr-16 pt-2'>Major-Project</p>
         </div></Tilt></button>
