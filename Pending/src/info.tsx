@@ -205,7 +205,7 @@ const handleSelectChange = (selectedOption: { value: string; label: string } | n
     <div className="relative flex h-screen w-full">
       <div id="recaptcha-container"></div>
       {/* Left Side - File Upload */}
-      <div className="w-1/2 flex flex-col items-center justify-center bg-gradient-to-r from-[#3c50e0] to-[#00df9a] text-white p-10">
+      <div className="w-1/2 flex flex-col items-center justify-center bg-[#00df9a] text-white p-10">
         <p className="text-4xl font-bold font-Manrope text-center">Upload the question paper of the assignment</p>
         <Test handleFile={handleFile} />
         {fileName ? <p>Uploaded File: {fileName}</p> : <p>No file selected</p>}
