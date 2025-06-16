@@ -1,5 +1,5 @@
 import { ReactTyped } from 'react-typed'
-import { WordRotate } from "@/components/magicui/word-rotate";
+import { WordRotate } from "../magicui/word-rotate";
 
 export default function main() {
   return (

@@ -16,8 +16,8 @@ export const Home = () => {
     <Card/>
     <Logo/>
     <About/>
-    <Why/>
-    <Step/>
+    {/* <Why/> */}
+    {/* <Step/> */}
     </>
   )
 }
