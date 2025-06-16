@@ -6,6 +6,7 @@ import About from "../components/About/about"
 import Why from '../components/Why/why'
 import Logo from "../components/logo/logo";
 import Step from '../components/Steps/step'
+import Text from '../components/About/text'
 import { useRef } from 'react'
 
 export const Home = () => {
@@ -15,6 +16,7 @@ export const Home = () => {
     <Main/>
     <Card/>
     <Logo/>
+    <Text/>
     <About/>
     {/* <Why/> */}
     {/* <Step/> */}
