@@ -17,6 +17,8 @@ export default {
       animation: {
         "meteor-effect": "meteor 5s linear infinite",
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
+        marquee: 'marquee 25s linear infinite',
+        marquee2: 'marquee2 25s linear infinite',
       },
       keyframes: {
         meteor: {
