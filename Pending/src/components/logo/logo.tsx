@@ -8,12 +8,12 @@ function logo() {
   return (
     <div className="w-100% gap-20 my-40 h-max overflow-x-hidden items-center px-40  flex flex-col">
       <p className='font-urbanist text-3xl text-[#301934] -tracking-tighter'>TRUSTED BY STUDENTS AT</p>
-      <Marquee>
+      <Marquee pauseOnHover>
         <img src={srm} className='h-20'/>
         <img src={srmncr} className='h-20'/>
         <img src={srmsoni} className='h-20'/>
         <img src={srmap} className='h-20'/>
-      </div>
+      </Marquee>
     </div>
   )
 }
