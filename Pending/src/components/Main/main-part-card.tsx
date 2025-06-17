@@ -24,7 +24,7 @@ function main_part_card() {
     const navigate = useNavigate()
   return (
     <div className= 'mx-7 pb-12 pt-10 overflow-hidden px-10 gap-10 relative rounded-3xl bg-[#000000] max-w-[100%] h-[100%]'>
-        <Vortex particleCount={100} rangeY={800} baseHue={180}>
+        <Vortex particleCount={50} rangeY={800} baseHue={180}>
        <button onClick={() => navigate('Info-Page') }>
         <Tilt options={defaultOptions}>
             <div className='h-[320px] rounded-2xl w-[240px] font-urbanist ml-20 text-3xl text-white bg-[#301934]'>

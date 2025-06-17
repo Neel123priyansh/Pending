@@ -19,7 +19,7 @@ function about() {
         squareSize={5}
         color="#00df9a"
         maxOpacity={1} 
-        flickerChance={0.0}
+        flickerChance={0.1}
       />
       </div>
         </div>
