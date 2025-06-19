@@ -70,8 +70,8 @@ const OTPverf: React.FC = () => {
       <form
         onSubmit={handleOtpSubmit}
         className="flex flex-col bg-white p-5 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-4xl font-bold text-center mb-1 text-[#301934]">Verify Your Phone Number</h1>
-        <h1 className="text-xs text-left mb-4 text-[#301934]">Please enter the OTP sent to your registered phone number to complete your verification</h1>
+        <h1 className="text-4xl font-bold text-center mb-3 text-[#301934]">Verify Your Phone Number</h1>
+        <h1 className="text-xs text-center mb-4 text-[#301934]">Please enter the OTP sent to your registered phone number to complete your verification</h1>
         <div className="flex flex-col mt-3 ml-2">
           <InputOTP maxLength={6}>
             <InputOTPGroup>
@@ -94,7 +94,7 @@ const OTPverf: React.FC = () => {
           <p>Remaining Time: {formatTime(timeLeft)}</p>
           <p className="flex flex-row gap-1">Didn't get the code?
             <button type="button"
-              className="text-blue-500 hover:underline"
+              className="text-[#00c78c] hover:underline"
               disabled={!canResend}
               onClick={handleResend}>{canResend ? "Resend Code" : "Resend Disabled"}</button>
           </p>
