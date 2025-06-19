@@ -66,7 +66,7 @@ const OTPverf: React.FC = () => {
   return (
     <>
     <Headerwo />
-    <div className="flex items-center justify-center h-screen bg-[#f7efd8]">
+    <div className="flex items-center justify-center h-screen bg-[#ece5e5]">
       <form
         onSubmit={handleOtpSubmit}
         className="flex flex-col bg-white p-5 rounded-lg shadow-lg w-full max-w-md">
