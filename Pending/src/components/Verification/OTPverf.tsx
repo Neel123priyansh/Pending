@@ -66,11 +66,11 @@ const OTPverf: React.FC = () => {
   return (
     <>
     <Headerwo />
-    <div className="flex items-center justify-center h-screen bg-[#ece5e5]">
+    <div className="flex items-center justify-center font-urbanist h-screen bg-[#ece5e5]">
       <form
         onSubmit={handleOtpSubmit}
-        className="flex flex-col bg-white p-5 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-3xl font-bold text-left mb-1 text-[#00df9a]">Verify Your Phone Number</h1>
+        className="flex flex-col bg-white p-4 rounded-lg shadow-lg w-full max-w-md">
+        <h1 className="text-3xl font-bold text-center mb-1 text-[#00df9a]">Verify Your Phone Number</h1>
         <h1 className="text-xs font-mono text-left mb-4 text-black">Please enter the OTP sent to your registered phone number to complete your verification</h1>
         <div className="flex flex-col mt-3 ml-2">
           <InputOTP maxLength={6}>
