@@ -25,7 +25,7 @@ export const Test: React.FC<TestProps> = ({ handleFile }) => {
         type="button"
         onClick={handleClick}
       >
-        <p className='text-white text-2xl font-bold font-Manrope'>Select The PDF</p>
+        <p className='text-white text-2xl font-bold font-urbanist'>Select The PDF</p>
       </button>
       <input 
         type='file' 

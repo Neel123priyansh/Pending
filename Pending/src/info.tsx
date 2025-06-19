@@ -206,15 +206,15 @@ const handleSelectChange = (selectedOption: { value: string; label: string } | n
       <div id="recaptcha-container"></div>
       {/* Left Side - File Upload */}
       <div className="w-1/2 flex flex-col items-center justify-center bg-[#00df9a] text-white p-10">
-        <p className="text-4xl font-bold font-Manrope text-center">Upload the question paper of the assignment</p>
+        <p className="text-4xl font-bold font-urbanist text-center">Upload the question paper of the assignment</p>
         <Test handleFile={handleFile} />
-        {fileName ? <p>Uploaded File: {fileName}</p> : <p>No file selected</p>}
+        {fileName ? <p>Uploaded File: {fileName}</p> : <p className=''>No file selected</p>}
       </div>
 
       {/* Right Side - Form */}
       <div className="w-1/2 flex items-center justify-center bg-white">
         <form onSubmit={handleSubmit} {...register("file")} className="flex flex-col w-4/6 text-center py-10 px-10">
-          <p className="text-5xl font-semibold text-[#00df9a] font-Manrope">Basic Information</p>
+          <p className="text-5xl font-semibold text-[#00df9a] font-urbanist">Basic Information</p>
 
           <input
             type="text"
@@ -276,7 +276,7 @@ const handleSelectChange = (selectedOption: { value: string; label: string } | n
             required
           />
 
-          <button type="submit" className="mt-8 rounded-xl w-96 h-11 font-medium text-white bg-[#00df9a] mx-auto">
+          <button type="submit" className="mt-8 rounded-xl font-urbanist w-96 h-11 text-xl text-white bg-[#00df9a] mx-auto">
             NEXT STEP
           </button>
         </form>
