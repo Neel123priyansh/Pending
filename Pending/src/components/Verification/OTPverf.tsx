@@ -69,10 +69,10 @@ const OTPverf: React.FC = () => {
     <div className="flex items-center justify-center font-urbanist h-screen bg-[#ece5e5]">
       <form
         onSubmit={handleOtpSubmit}
-        className="flex flex-col bg-[#301934] p-5 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-4xl text-center mb-1 text-[#00df9a]">Verify Your Phone Number</h1>
-        <h1 className="text-xs text-left mb-4 text-black">Please enter the OTP sent to your registered phone number to complete your verification</h1>
-        <div className="flex flex-col mt-3 ml-2 text-white">
+        className="flex flex-col bg-white p-5 rounded-lg shadow-lg w-full max-w-md">
+        <h1 className="text-4xl font-bold text-center mb-1 text-[#301934]">Verify Your Phone Number</h1>
+        <h1 className="text-xs text-left mb-4 text-[#301934]">Please enter the OTP sent to your registered phone number to complete your verification</h1>
+        <div className="flex flex-col mt-3 ml-2">
           <InputOTP maxLength={6}>
             <InputOTPGroup>
               <InputOTPSlot index={0} />
@@ -90,7 +90,7 @@ const OTPverf: React.FC = () => {
             </InputOTPGroup>
           </InputOTP>
         </div>
-        <div className="flex flex-row text-xs justify-between mt-3">
+        <div className="flex flex-row text-xs justify-between text-[#301934] mt-3">
           <p>Remaining Time: {formatTime(timeLeft)}</p>
           <p className="flex flex-row gap-1">Didn't get the code?
             <button type="button"
@@ -101,12 +101,12 @@ const OTPverf: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="bg-[#00df9a] rounded-full text-white mt-14 py-2 text-xl hover:bg-[#00c78c] transition">
+          className="bg-[#00df9a] rounded-full text-white mt-14 py-2 text-xl font-semibold hover:bg-[#00c78c] transition">
           Verify
         </button>
         <button
           type="submit"
-          className="bg-white border-2 border-[#00df9a] mt-3 py-2 text-xl text-[#00df9a] rounded-full hover:bg-[#00c78c] transition">
+          className="bg-white border-2 border-[#00df9a] mt-3 py-2 text-xl text-[#00df9a] font-semibold rounded-full hover:bg-[#00c78c] transition">
           Cancel
         </button>
       </form>
