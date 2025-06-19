@@ -3,6 +3,7 @@ import { useRef } from "react";
 import Aboutna from '../../../src/assets/Aboutna.png'
 import Climb from '../../../src/assets/climb.png'
 import { FlickeringGrid } from "../magicui/flickering-grid";
+import people from "./people";
 
 
 function about() {
@@ -26,7 +27,6 @@ function about() {
         </div>
         <div className= 'w-[150%] flex flex-col items-center overflow-hidden rounded-tr-3xl mr-10'>
         <img className="w-full h-full object-cover" src={Climb}/>
-          
         </div>
     </div>
   )

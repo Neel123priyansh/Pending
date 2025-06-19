@@ -7,7 +7,7 @@ import Why from '../components/Why/why'
 import Logo from "../components/logo/logo";
 import Step from '../components/Steps/step'
 import Text from '../components/About/text'
-import { useRef } from 'react'
+import People from '../components/About/people'
 
 export const Home = () => {
   return (
@@ -18,6 +18,7 @@ export const Home = () => {
     <Logo/>
     <Text/>
     <About/>
+    <People/>
     {/* <Why/> */}
     {/* <Step/> */}
     </>

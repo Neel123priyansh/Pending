@@ -6,7 +6,6 @@ import { Check } from './components/checkout/check'
 import { PrivateRoute } from './components/checkout/PrivateRoute'
 import OTPverf from './components/Verification/OTPverf'
 import { Confirmation } from './components/checkout/confirmation'
-import
 
 
 const App = () => {
