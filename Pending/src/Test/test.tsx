@@ -21,7 +21,7 @@ export const Test: React.FC<TestProps> = ({ handleFile }) => {
   return (
     <div className='flex flex-col items-center justify-center'>
       <button 
-        className='bg-[#2d2d2c] mt-20 rounded-[12px] h-20 mb-5 w-80' 
+        className='bg-[#2d2d2c] rounded-[12px] h-20 mb-5 w-80' 
         type="button"
         onClick={handleClick}
       >
