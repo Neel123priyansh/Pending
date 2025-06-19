@@ -69,9 +69,9 @@ const OTPverf: React.FC = () => {
     <div className="flex items-center justify-center font-urbanist h-screen bg-[#ece5e5]">
       <form
         onSubmit={handleOtpSubmit}
-        className="flex flex-col bg-white p-4 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center mb-1 text-[#00df9a]">Verify Your Phone Number</h1>
-        <h1 className="text-xs font-mono text-left mb-4 text-black">Please enter the OTP sent to your registered phone number to complete your verification</h1>
+        className="flex flex-col bg-white p-5 rounded-lg shadow-lg w-full max-w-md">
+        <h1 className="text-4xl text-center mb-1 text-[#00df9a]">Verify Your Phone Number</h1>
+        <h1 className="text-xs text-left mb-4 text-black">Please enter the OTP sent to your registered phone number to complete your verification</h1>
         <div className="flex flex-col mt-3 ml-2">
           <InputOTP maxLength={6}>
             <InputOTPGroup>
@@ -101,7 +101,7 @@ const OTPverf: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="bg-[#00df9a] rounded-full text-white mt-14 py-2 text-xl font-semibold hover:bg-[#00c78c] transition">
+          className="bg-[#00df9a] rounded-full text-white mt-14 py-2 text-xl hover:bg-[#00c78c] transition">
           Verify
         </button>
         <button
