@@ -173,21 +173,20 @@ const handleRazorpayScreen = async (amount: number) => {
       <Confirmation />
     </>
   )}
-      <div className="flex h-screen items-center font-work-sans justify-center">
-        <div className="w-8/12 shadow-2xl rounded-2xl h-3/5 bg-[#f7efd8]">
-          <div className="bg-[#2d2d2c] flex justify-between items-center px-6 h-24 rounded-t-2xl">
-            <p className="text-white text-2xl">Cart Calculation</p>
-            <button className="bg-red-500 flex items-center gap-2 rounded-md w-32 h-11 text-white">
+      <div className="flex h-screen items-center font-urbanist justify-center">
+        <div className="w-9/12 shadow-2xl rounded-2xl h-3/5 bg-[#00c78c]">
+          <div className="bg-[#301934] flex justify-between items-center px-6 h-24 rounded-t-2xl">
+            <p className="text-white text-3xl">Cart Calculation</p>
+            {/* <button className="bg-red-500 flex items-center gap-2 rounded-md w-32 h-11 text-white">
               <RiDeleteBin5Line className="ml-1 size-5" />
               Empty Cart
-            </button>
+            </button> */}
           </div>
 
           <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left dark:text-black-400">
-              <thead className="text-base text-black uppercase">
+              <thead className="text-base text-white uppercase">
                 <tr>
-                  <th className="px-6 py-3">Action</th>
                   <th className="px-6 py-3">Product</th>
                   <th className="px-6 py-3">Name</th>
                   <th className="px-6 py-3">Price</th>
@@ -196,12 +195,7 @@ const handleRazorpayScreen = async (amount: number) => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-y bg-[#f7efd8] dark:border-green-600">
-                  <td className="px-6 py-4">
-                    <button className="bg-red-400 h-12 w-11 rounded-md">
-                      <RiDeleteBin5Line className="text-white mx-auto size-7" />
-                    </button>
-                  </td>
+                <tr className="border-y bg-[#00c78c] dark:border-green-600">
                   <td className="px-6 py-4">Assignment</td>
                   <td className="px-6 py-4">{pdfName ? <p>{pdfName}</p> : <p>Loading...</p>}</td>
                   <td className="px-6 py-4">
@@ -209,7 +203,7 @@ const handleRazorpayScreen = async (amount: number) => {
                     </td>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="flex items-center">
+                    <div className="flex items-center text-white">
                       <button onClick={decreaseAmount} className="bg-cyan-300 h-10 w-11 rounded-sm">
                         <FaMinus className="mx-auto text-cyan-700" />
                       </button>
@@ -224,7 +218,7 @@ const handleRazorpayScreen = async (amount: number) => {
                       </button>
                     </div>
                   </td>
-                  <td className="px-6 py-4 font-semibold text-green-700">
+                  <td className="px-6 py-4 font-semibold text-white">
                     {price !== null ? `₹${(price * amount).toFixed(2)}` : "Calculating..."} 
                   </td>
                 </tr>
