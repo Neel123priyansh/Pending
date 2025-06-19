@@ -6,14 +6,16 @@ import Marquee from 'react-fast-marquee';
 
 function logo() {
   return (
-    <div className="w-100% gap-20 my-40 h-max overflow-x-hidden items-center px-40  flex flex-col">
+    <div className="gap-20 my-40 w-full items-center px-40  flex flex-col">
       <p className='font-urbanist text-3xl text-[#301934] -tracking-tighter'>TRUSTED BY STUDENTS AT</p>
-      <Marquee pauseOnHover>
-        <img src={srm} className='h-20'/>
+      <div className='w-screen overflow-hidden'>
+      <Marquee className='flex gap-60' gradient gradientWidth={200} loop={0} gradientColor='#ece5e5'>
+        <img src={srm} className='h-20 mr-48'/>
         <img src={srmncr} className='h-20'/>
-        <img src={srmsoni} className='h-20'/>
+        <img src={srmsoni} className='h-20 mx-48'/>
         <img src={srmap} className='h-20'/>
       </Marquee>
+      </div>
     </div>
   )
 }
