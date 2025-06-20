@@ -229,7 +229,7 @@ const handleRazorpayScreen = async (amount: number) => {
                   <td></td>
                   <td></td>
                   <td className="font-semibold px-6 py-3">Item in Cart: 1</td>
-                  <td className="p-10">
+                  <td className="pl-6">
                     <button onClick={() => handleRazorpayScreen(price ?? 0)} className="bg-green-700 rounded-md w-28 h-11 text-white">
                       CheckOut
                     </button> 
