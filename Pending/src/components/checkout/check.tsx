@@ -195,7 +195,7 @@ const handleRazorpayScreen = async (amount: number) => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-y text-[#00c78c] text-base dark:border-green-600">
+                <tr className="border-y text-[#00c78c] text-base font-semibold dark:border-green-600">
                   <td className="px-6 py-4 ">Assignment</td>
                   <td className="px-6 py-4">{pdfName ? <p>{pdfName}</p> : <p>Loading...</p>}</td>
                   <td className="px-6 py-4">
