@@ -199,7 +199,7 @@ const handleRazorpayScreen = async (amount: number) => {
                   <td className="px-6 py-4 ">Assignment</td>
                   <td className="px-6 py-4">{pdfName ? <p>{pdfName}</p> : <p>Loading...</p>}</td>
                   <td className="px-6 py-4">
-                    <td className="px-6 py-4">{price !== null ? `₹${(price).toFixed(2)}` : "Calculating..."}
+                    <td className=" pr-10 py-4">{price !== null ? `₹${(price).toFixed(2)}` : "Calculating..."}
                     </td>
                   </td>
                   <td className="px-6 py-4">
@@ -224,7 +224,7 @@ const handleRazorpayScreen = async (amount: number) => {
                 </tr>
               </tbody>
               <tfoot>
-                <tr className="text-[#00c78c] dark:text-black">
+                <tr className="text-[#00c78c]">
                   <th className="px-6 py-4 text-base">Total: {price !== null ? `₹${(price * amount).toFixed(2)}` : "Calculating..."}</th>
                   <td></td>
                   <td></td>
@@ -232,7 +232,7 @@ const handleRazorpayScreen = async (amount: number) => {
                   <td className="pl-6">
                     <button onClick={() => handleRazorpayScreen(price ?? 0)} className="bg-green-700 rounded-md w-28 h-11 text-white">
                       CheckOut
-                    </button> 
+                    </button> erere
                   </td>
                 </tr>
               </tfoot>
