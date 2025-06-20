@@ -174,7 +174,7 @@ const handleRazorpayScreen = async (amount: number) => {
     </>
   )}
       <div className="flex h-screen items-center font-urbanist justify-center">
-        <div className="w-9/12 shadow-2xl rounded-2xl h-3/5 ">
+        <div className="w-9/12 shadow-2xl rounded-2xl h-3/5 bg-white">
           <div className="bg-[#301934] flex justify-between items-center px-6 h-24 rounded-t-2xl">
             <p className="text-white text-3xl">Cart Calculation</p>
             {/* <button className="bg-red-500 flex items-center gap-2 rounded-md w-32 h-11 text-white">
@@ -185,7 +185,7 @@ const handleRazorpayScreen = async (amount: number) => {
 
           <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left dark:text-black-400">
-              <thead className="text-base text-white uppercase">
+              <thead className="text-base text-[#00c78c] uppercase">
                 <tr>
                   <th className="px-6 py-3">Product</th>
                   <th className="px-6 py-3">Name</th>
@@ -195,7 +195,7 @@ const handleRazorpayScreen = async (amount: number) => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-y text-white text-base bg-[#00c78c] dark:border-green-600">
+                <tr className="border-y text-[#00c78c] text-base bg-[#00c78c] dark:border-green-600">
                   <td className="px-6 py-4 ">Assignment</td>
                   <td className="px-6 py-4">{pdfName ? <p>{pdfName}</p> : <p>Loading...</p>}</td>
                   <td className="px-6 py-4">
