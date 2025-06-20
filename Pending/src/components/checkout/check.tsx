@@ -174,7 +174,7 @@ const handleRazorpayScreen = async (amount: number) => {
     </>
   )}
       <div className="flex h-screen items-center font-urbanist justify-center">
-        <div className="w-9/12 shadow-2xl rounded-2xl h-3/5 bg-[#00c78c]">
+        <div className="w-9/12 shadow-2xl rounded-2xl h-3/5 ">
           <div className="bg-[#301934] flex justify-between items-center px-6 h-24 rounded-t-2xl">
             <p className="text-white text-3xl">Cart Calculation</p>
             {/* <button className="bg-red-500 flex items-center gap-2 rounded-md w-32 h-11 text-white">
