@@ -185,7 +185,7 @@ const handleRazorpayScreen = async (amount: number) => {
 
           <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left dark:text-black-400">
-              <thead className="text-base text-[#00c78c] uppercase">
+              <thead className="text-base text-[#00c78c] font-semibold uppercase">
                 <tr>
                   <th className="px-6 py-3">Product</th>
                   <th className="px-6 py-3">Name</th>
@@ -195,7 +195,7 @@ const handleRazorpayScreen = async (amount: number) => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-y text-[#00c78c] text-base bg-[#00c78c] dark:border-green-600">
+                <tr className="border-y text-[#00c78c] text-base dark:border-green-600">
                   <td className="px-6 py-4 ">Assignment</td>
                   <td className="px-6 py-4">{pdfName ? <p>{pdfName}</p> : <p>Loading...</p>}</td>
                   <td className="px-6 py-4">
@@ -203,7 +203,7 @@ const handleRazorpayScreen = async (amount: number) => {
                     </td>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="flex items-center text-white">
+                    <div className="flex items-center text-[#00c78c]">
                       <button onClick={decreaseAmount} className="bg-cyan-300 h-10 w-11 rounded-sm">
                         <FaMinus className="mx-auto text-cyan-700" />
                       </button>
@@ -218,13 +218,13 @@ const handleRazorpayScreen = async (amount: number) => {
                       </button>
                     </div>
                   </td>
-                  <td className="px-6 py-4 font-semibold text-white">
+                  <td className="px-6 py-4 font-semibold text-[#00c78c]">
                     {price !== null ? `₹${(price * amount).toFixed(2)}` : "Calculating..."} 
                   </td>
                 </tr>
               </tbody>
               <tfoot>
-                <tr className="text-white dark:text-black">
+                <tr className="text-[#00c78c] dark:text-black">
                   <th className="px-6 py-4 text-base">Total: {price !== null ? `₹${(price * amount).toFixed(2)}` : "Calculating..."}</th>
                   <td></td>
                   <td></td>
