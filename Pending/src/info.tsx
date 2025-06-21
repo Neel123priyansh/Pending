@@ -73,12 +73,13 @@ const [user, setUser] = useState<{
 
   const sendOTP = async (phoneNumber: string) => {
       try {
-    const recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+    const verifier = new RecaptchaVerifier(auth, "recaptcha-container", {
       size: "invisible",
     });
 
     const confirmationResult = await signInWithPhoneNumber(auth, `+91${phoneNumber}`,recaptchaVerifier);
     (window as any).confirmationResult = confirmationResult;
+    navigate('/Verification')
   } catch (error: any) {
     console.error("OTP Error:", error);
   }
@@ -176,7 +177,7 @@ const handleSelectChange = (selectedOption: { value: string; label: string } | n
       }
 
       // 5. Delay navigation slightly to let toast finish
-      setTimeout(() => navigate("/Verification"), 1000);
+      // setTimeout(() => navigate("/Verification"), 1000);
     })(),
     {
       pending: "Uploading your data and sending OTP...",
