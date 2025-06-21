@@ -71,17 +71,37 @@ const [user, setUser] = useState<{
     setUser(prevUser => ({ ...prevUser, [name]: value }));
   };
 
-  const sendOTP = async (phoneNumber: string) => {
-    try {
-    const verifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-      size: "invisible",
-      callback: () => {},
-    });
-    const confirmationResult = await signInWithPhoneNumber(auth, `+91${phoneNumber}`,verifier);
+const sendOTP = async (phoneNumber: string) => {
+  try {
+    // Prevent multiple instances of RecaptchaVerifier
+    if (!(window as any).recaptchaVerifier) {
+      (window as any).recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+        size: "invisible",
+        callback: (response: any) => {
+          // reCAPTCHA solved, proceed
+        },
+        'expired-callback': () => {
+          console.warn("reCAPTCHA expired. Please try again.");
+        }
+      });
+    }
+
+    const appVerifier = (window as any).recaptchaVerifier;
+
+    const confirmationResult = await signInWithPhoneNumber(
+      auth,
+      `+91${phoneNumber}`,
+      appVerifier
+    );
+
+    // Store confirmationResult to verify OTP later
     (window as any).confirmationResult = confirmationResult;
-    navigate('/Verification')
+
+    // Navigate to OTP verification screen
+    navigate("/Verification");
+
   } catch (error: any) {
-    console.error("OTP Error:", error);
+    console.error("OTP Error:", error.message || error);
   }
 };
 
