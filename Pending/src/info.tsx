@@ -97,7 +97,9 @@ const sendOTP = async (phoneNumber: string) => {
     // Store confirmationResult to verify OTP later
     (window as any).confirmationResult = confirmationResult;
 
-    // Navigate to OTP verification screen
+    console.log("Sending OTP to:", phoneNumber);
+    console.log("Using appVerifier:", appVerifier);
+
     navigate("/Verification");
 
   } catch (error: any) {
