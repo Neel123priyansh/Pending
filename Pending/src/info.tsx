@@ -72,12 +72,12 @@ const [user, setUser] = useState<{
   };
 
   const sendOTP = async (phoneNumber: string) => {
-      try {
+    try {
     const verifier = new RecaptchaVerifier(auth, "recaptcha-container", {
       size: "invisible",
+      callback: () => {},
     });
-
-    const confirmationResult = await signInWithPhoneNumber(auth, `+91${phoneNumber}`,recaptchaVerifier);
+    const confirmationResult = await signInWithPhoneNumber(auth, `+91${phoneNumber}`,verifier);
     (window as any).confirmationResult = confirmationResult;
     navigate('/Verification')
   } catch (error: any) {
