@@ -7,7 +7,7 @@ function people() {
         <div className="w-[190px] h-[254px] rounded-[30px] bg-gray-300 shadow-[inset_0_30px_50px_-12px_rgba(50,50,93,0.25),inset_0_18px_26px_-18px_rgba(0,0,0,0.3)]"></div>
         <div className="w-[190px] h-[254px] rounded-[30px] bg-gray-300 shadow-[inset_0_30px_50px_-12px_rgba(50,50,93,0.25),inset_0_18px_26px_-18px_rgba(0,0,0,0.3)]"></div>
         <div className="w-[190px] h-[254px] rounded-[30px] bg-gray-300 shadow-[inset_0_30px_50px_-12px_rgba(50,50,93,0.25),inset_0_18px_26px_-18px_rgba(0,0,0,0.3)]"></div>
-                                <div className="w-[190px] h-[254px] rounded-[30px] bg-gray-300 shadow-[inset_0_30px_50px_-12px_rgba(50,50,93,0.25),inset_0_18px_26px_-18px_rgba(0,0,0,0.3)]"></div>
+        <div className="w-[190px] h-[254px] rounded-[30px] bg-gray-300 shadow-[inset_0_30px_50px_-12px_rgba(50,50,93,0.25),inset_0_18px_26px_-18px_rgba(0,0,0,0.3)]"></div>
         </div>
     </div>
   )
