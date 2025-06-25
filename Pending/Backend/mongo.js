@@ -1,14 +1,10 @@
 import mongoose, { mongo } from 'mongoose';
 
 const MONGO_URI = "mongodb+srv://neelpriyansh:BUHM0hbEryFmL4Aw@cluster0.mtjrnw1.mongodb.net/";
-mongoose.connect(MONGO_URI || "mongodb://localhost:27017/")
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log("MongoDB Connection Error:", err)); 
 
 const mongodb = async() => {
     try {
-        await mongoose.connect(MONGO_URI)
-        console.log("Connection Succcess");
+        await mongoose.connect(MONGO_URI || "mongodb://localhost:27017/").then(() => console.log("MongoDB Connected")).catch(err => console.log("MongoDB Connection Error:", err));
     } catch (error) {
         console.error("Database Failed") 
         process.exit(0);
