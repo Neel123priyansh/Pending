@@ -33,7 +33,7 @@ function main_part_card() {
         </div>
         </Tilt>
         </button>
-        <button onClick={()=> navigate('/Info-Page')}>
+        <button onClick={()=> navigate('/Info_lab')}>
 
             <Tilt options={defaultOptions}>
             <div className='h-[320px] rounded-2xl mt-12 w-[240px] text-3xl font-urbanist text-white bg-[#301934] mx-20 '>
