@@ -28,12 +28,12 @@ export const Confirmation = () => {
           <CircleCheckIcon className="text-[#00df9a] h-16 w-16" />
             <Confetti ref={confettiRef} className="absolute left-0 top-0 z-0 size-full" onMouseEnter={() => {confettiRef.current?.fire({});}}/>
           <h1 className="text-3xl font-bold text-black mt-4">Payment Successful</h1>
-          <p className="text-gray-200 text-center dark:text-gray-400 mt-2">
+          <p className="text-[#301934] text-center dark:text-gray-400 mt-2">
             Your delivery is scheduled for <b>{show_date}</b> Thank you for your payment. Your order has been placed successfully
           </p>
         </div>
         <div className="border-t border-gray-200 dark:border-gray-700 pt-6 space-y-4">
-            <p className="text-gray-500 text-center dark:text-gray-400 mt-2">
+            <p className="text-[#301934] text-center dark:text-gray-400 mt-2">
                 The delivery point details for your selected campus will be sent to you via WhatsApp.
             </p>
           <div className="flex justify-between">
