@@ -12,6 +12,6 @@ const pendingSchema = new mongoose.Schema({
   select: { type: String, required: true }
 });
 
-const PendingModel = mongoose.model("Pen", pendingSchema);
+const PendingModel = mongoose.model("Pendingusers", pendingSchema);
 
 export default PendingModel;
