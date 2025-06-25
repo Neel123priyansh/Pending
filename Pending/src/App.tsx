@@ -24,6 +24,7 @@ const App = () => {
         }
         />
         <Route path='/Verification' element={<OTPverf/>}/>
+        <Route path='/Info-lab' element={<Info_lab/>}/>
     </Routes>
     </BrowserRouter>
     </>
