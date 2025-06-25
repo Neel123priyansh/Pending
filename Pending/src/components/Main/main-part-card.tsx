@@ -33,12 +33,14 @@ function main_part_card() {
         </div>
         </Tilt>
         </button>
-        <button>
+        <button onClick={()=> navigate('/Info-Page')}>
+
             <Tilt options={defaultOptions}>
             <div className='h-[320px] rounded-2xl mt-12 w-[240px] text-3xl font-urbanist text-white bg-[#301934] mx-20 '>
             <img className='rounded-t-2xl' src={Lab}/>
             <p className='text-center pt-2'>Lab File</p>
-        </div></Tilt></button>
+        </div></Tilt>
+        </button>
         <button> <Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-3xl text-white bg-[#301934] font-urbanist '>
             <img className='rounded-t-2xl' src={Mini}/>
             <p className='text-center pt-2'>Mini-Project</p>
