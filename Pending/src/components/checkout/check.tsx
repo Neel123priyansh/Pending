@@ -185,7 +185,7 @@ const handleRazorpayScreen = async (amount: number) => {
 
           <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left dark:text-black-400">
-              <thead className="text-base text-[#00c78c] font-semibold uppercase">
+              <thead className="text-base text-[#301934]] font-semibold uppercase">
                 <tr>
                   <th className="px-6 py-3">Product</th>
                   <th className="px-6 py-3">Name</th>
