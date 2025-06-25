@@ -5,6 +5,7 @@ import { Info } from './info'
 import { Check } from './components/checkout/check'
 import { PrivateRoute } from './components/checkout/PrivateRoute'
 import OTPverf from './components/Verification/OTPverf'
+import {Info_lab} from './info_page_lab'
 import { Confirmation } from './components/checkout/confirmation'
 
 
