@@ -26,7 +26,7 @@ const resolveAfter3Sec = new Promise((resolve, reject) => {
 });
 
 
-export const Info_lab = () => {
+export const Info_project = () => {
 const [user, setUser] = useState<{
   name: string;
   email: string;
