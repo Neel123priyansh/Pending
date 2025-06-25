@@ -41,7 +41,7 @@ function main_part_card() {
             <p className='text-center pt-2'>Lab File</p>
         </div></Tilt>
         </button>
-        <button> <Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-3xl text-white bg-[#301934] font-urbanist '>
+        <button onClick={() => navigate("/Mini-Project")}> <Tilt options={defaultOptions}><div className='h-[320px] rounded-2xl w-[240px] text-3xl text-white bg-[#301934] font-urbanist '>
             <img className='rounded-t-2xl' src={Mini}/>
             <p className='text-center pt-2'>Mini-Project</p>
         </div></Tilt></button>
