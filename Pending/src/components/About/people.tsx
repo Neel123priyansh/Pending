@@ -9,15 +9,15 @@ function people() {
           <img className="h-56 w-56" src={perimg}/>
           <h1>SRM-IST Delhi-NCR Campus, Ghaziabad</h1>
         </div>
-        <div className="w-[19rem] h-[22rem] rounded-[30px] bg-[#ece5e5] shadow-[inset_0_30px_50px_-12px_rgba(50,50,93,0.25),inset_0_18px_26px_-18px_rgba(0,0,0,0.3)]">
+        <div className="w-[19rem] h-[22rem] rounded-[30px] items-center flex flex-col justify-center bg-[#ece5e5] shadow-[inset_0_30px_50px_-12px_rgba(50,50,93,0.25),inset_0_18px_26px_-18px_rgba(0,0,0,0.3)]">
           <img className="h-56 w-56" src={perimg}/>
           <h1>SRM-IST Delhi-NCR Campus, Ghaziabad</h1>
         </div>
-        <div className="w-[19rem] h-[22rem] rounded-[30px] bg-[#ece5e5] shadow-[inset_0_30px_50px_-12px_rgba(50,50,93,0.25),inset_0_18px_26px_-18px_rgba(0,0,0,0.3)]">
+        <div className="w-[19rem] h-[22rem] rounded-[30px] items-center flex flex-col justify-center bg-[#ece5e5] shadow-[inset_0_30px_50px_-12px_rgba(50,50,93,0.25),inset_0_18px_26px_-18px_rgba(0,0,0,0.3)]">
           <img className="h-56 w-56" src={perimg}/>
           <h1>SRM-IST Delhi-NCR Campus, Ghaziabad</h1>
         </div>
-        <div className="w-[19rem] h-[22rem] rounded-[30px] bg-[#ece5e5] shadow-[inset_0_30px_50px_-12px_rgba(50,50,93,0.25),inset_0_18px_26px_-18px_rgba(0,0,0,0.3)]">
+        <div className="w-[19rem] h-[22rem] rounded-[30px] items-center flex flex-col justify-center bg-[#ece5e5] shadow-[inset_0_30px_50px_-12px_rgba(50,50,93,0.25),inset_0_18px_26px_-18px_rgba(0,0,0,0.3)]">
           <img className="h-56 w-56" src={perimg}/>
           <h1>SRM-IST Delhi-NCR Campus, Ghaziabad</h1>
         </div>
