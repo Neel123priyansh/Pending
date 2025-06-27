@@ -88,7 +88,7 @@ const sendOTP = async (phoneNumber: string) => {
 
     const appVerifier = (window as any).recaptchaVerifier;
 
-    const confirmationResult = await signInWthPhoneNumber(
+    const confirmationResult = await signInWithPhoneNumber(
       auth,
       `+91${phoneNumber}`,
       appVerifier
