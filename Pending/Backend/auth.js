@@ -7,6 +7,7 @@ import fs from 'fs'
 import path from 'path';
 import Razorpay from 'razorpay'
 import {S3Client} from "@aws-sdk/client-s3"
+import dotenv from 'dotenv'
 import multerS3 from "multer-s3"
 
 const router = express.Router();
