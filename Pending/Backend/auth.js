@@ -6,11 +6,20 @@ import pdf from 'pdf-parse'
 import fs from 'fs'
 import path from 'path';
 import Razorpay from 'razorpay'
+import {S3Client} from "@aws-sdk/client-s3"
+import multerS3 from "multer-s3"
 
 const router = express.Router();
 const ObjectId = mongoose.Types.ObjectId;
 
 
+const s3Client = new S3Client({
+  region: 'eu-north-1',
+  credentials: {
+    accessKeyId: process.env.ACCESS_KEY_ID,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  }
+});
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, './files'),
