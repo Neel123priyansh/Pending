@@ -10,6 +10,8 @@ import {S3Client} from "@aws-sdk/client-s3"
 import dotenv from 'dotenv'
 import multerS3 from "multer-s3"
 
+dotenv.config();
+
 const router = express.Router();
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -73,8 +75,9 @@ router.get("/", (req, res) => {
 router.post('/upload-pdf', awsupload.single('file'), async(req, res) => {
     try {
       if (!req.file) return res.status(400).json({ status: 'error', message: 'No file uploaded' });
-      const filePath = path.resolve(req.file.path);
-      const dataBuffer = fs.readFileSync(filePath);
+
+      const file = req.file;
+      const dataBuffer = fs.readFileSync(file);
       const data = await pdf(dataBuffer);
       const pageCount = data.numpages;
       res.status(200).json({status: 'ok', pdf: { fileUrl: req.file.filename }, pageCount});
@@ -138,7 +141,7 @@ router.get('/user/:userId', async (req, res) => {
 
 
 // Save user data with file upload
-router.post("/save-user-data", upload.single("file"), async (req, res) => {
+router.post("/save-user-data", awsupload.single("file"), async (req, res) => {
   const { name, email, phone, date, pdf, select } = req.body;
   console.log("Request Body:", req.body);
   console.log("File:", req.file);
