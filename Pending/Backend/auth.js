@@ -22,14 +22,29 @@ const s3Client = new S3Client({
   }
 });
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, './files'),
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now();
-    cb(null, uniqueSuffix + '-' + file.originalname);
-  }
-});
-const upload = multer({ storage });
+const awsupload = multer({
+  storage: multerS3({
+    s3: s3Client,
+    bucket: 'myawswala',
+    contentType: multerS3.AUTO_CONTENT_TYPE, 
+    contentDisposition: 'inline',  
+    metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: function (req, file, cb) {
+      cb(null, Date.now().toString() + "_" + file.originalname);
+    }
+  })
+})
+
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => cb(null, './files'),
+//   filename: (req, file, cb) => {
+//     const uniqueSuffix = Date.now();
+//     cb(null, uniqueSuffix + '-' + file.originalname);
+//   }
+// });
+// const upload = multer({ storage });
 
 // // Register user
 // router.post('/register', async (req, res) => {
@@ -55,7 +70,7 @@ router.get("/", (req, res) => {
   res.status(200).send("Server is running!");
 });
 
-router.post('/upload-pdf', upload.single('file'), async(req, res) => {
+router.post('/upload-pdf', awsupload.single('file'), async(req, res) => {
     try {
       if (!req.file) return res.status(400).json({ status: 'error', message: 'No file uploaded' });
       const filePath = path.resolve(req.file.path);
