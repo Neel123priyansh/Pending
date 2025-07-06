@@ -9,6 +9,7 @@ import Razorpay from 'razorpay'
 import {S3Client} from "@aws-sdk/client-s3"
 import dotenv from 'dotenv'
 import multerS3 from "multer-s3"
+import 
 
 dotenv.config();
 
@@ -74,20 +75,27 @@ router.get("/", (req, res) => {
 
 router.post('/upload-pdf', awsupload.single('file'), async (req, res) => {
   try {
-    if (!req.file || !req.file.buffer) {
-      return res.status(400).json({ error: "No file uploaded or buffer is missing" });
+    if (!req.file || !req.file.location) {
+      return res.status(400).json({ error: "File upload failed or S3 URL missing" });
     }
-    const data = await pdf(req.file.buffer);
+
+    const fileUrl = req.file.location;
+
+    // 🔽 Download file from S3
+    const response = await axios.get(fileUrl, { responseType: 'arraybuffer' });
+    const pdfBuffer = Buffer.from(response.data, 'binary');
+
+    // 🔽 Parse PDF
+    const data = await pdf(pdfBuffer);
     const pageCount = data.numpages;
 
     res.status(200).json({
       status: "ok",
-      pdf: { fileUrl: req.file.originalname }, // or req.file.location if using S3
+      pdf: { fileUrl },
       pageCount,
     });
   } catch (error) {
     console.error("PDF parsing error:", error);
-    console.log("File buffer:", req.file?.buffer);
     res.status(500).json({ error: "Failed to parse PDF" });
   }
 });
