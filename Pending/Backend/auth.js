@@ -76,7 +76,7 @@ router.post('/upload-pdf', awsupload.single('file'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ status: 'error', message: 'No file uploaded' });
 
-    const dataBuffer = fs.readFileSync(req.file.path); // ✅ Correct usage for DiskStorage
+    const dataBuffer = req.file.buffer;
     const data = await pdf(dataBuffer);
     const pageCount = data.numpages;
 
