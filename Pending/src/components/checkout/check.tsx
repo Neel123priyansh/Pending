@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "../Header/header";
-import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 // import { useParams } from "react-router-dom";
@@ -33,8 +31,8 @@ useEffect(() => {
   const navigate = useNavigate();
   const increaseAmount = () => setAmount((prev) => prev + 1);
   const decreaseAmount = () => setAmount((prev) => (prev > 1 ? prev - 1 : 1));
-  const [isAllowed, setIsAllowed] = useState(false);
-  const [responseId, setResponseId] = React.useState("");
+  const [, setIsAllowed] = useState(false);
+  const [, setResponseId] = React.useState("");
 
   const loadScript = (src: string): Promise<boolean> => {
   return new Promise((resolve) => {

@@ -1,17 +1,10 @@
 import { SVGProps, useRef } from "react"
 import { JSX } from "react/jsx-runtime"
-import Link from "next/link"
 import { Confetti, type ConfettiRef } from "../magicui/confetti";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "../ui/card"
 
 export const Confirmation = () => {

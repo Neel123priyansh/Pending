@@ -1,4 +1,3 @@
-import { BackgroundGradient } from "../ui/background-gradient";
 import perimg from '../../../src/assets/app-icon-person.png'
 
 function people() {
