@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ConfirmationResult } from "firebase/auth";
 import { toast, ToastContainer } from "react-toastify";
 import {
   InputOTP,
@@ -13,7 +12,6 @@ import Headerwo from "../Header/header_wo";
 const OTPverf: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(120);
   const [canResend, setCanResend] = useState(false);
-  const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     if (timeLeft <= 0) {
@@ -51,8 +49,8 @@ const OTPverf: React.FC = () => {
     }
 
     try {
-      const result = await confirmationResult.confirm(otp); // ✅ verify OTP
-      const user = result.user;
+      // const result = await confirmationResult.confirm(otp); // ✅ verify OTP
+      // const user = result.user;
       toast.success("Phone verified successfully ✅");
       setTimeout(() => {
         navigate("/Check"); // Navigate to next step/page
