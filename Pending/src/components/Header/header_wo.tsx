@@ -1,9 +1,6 @@
-import { useRef } from "react";
 import { useNavigate} from "react-router-dom" 
-import about from "../About/about";
 export default function headerwo() {
   const navigate = useNavigate()
-  const aboutus = useRef(null);
 
   return (
     <div className='fixed z-50 w-full backdrop-blur-lg bg-white/5 flex justify-between items-center max-w-[100%] text-white h-24 bg-[#f7efd8] mx-auto'>
