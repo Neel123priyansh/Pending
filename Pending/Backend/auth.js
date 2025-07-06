@@ -87,6 +87,7 @@ router.post('/upload-pdf', awsupload.single('file'), async (req, res) => {
     });
   } catch (error) {
     console.error("PDF parsing error:", error);
+    console.log("File buffer:", req.file?.buffer);
     res.status(500).json({ error: "Failed to parse PDF" });
   }
 });
