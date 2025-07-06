@@ -1,5 +1,4 @@
-import React from 'react'
-import { Route, Routes, useNavigate, BrowserRouter } from 'react-router-dom'
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import {Login} from "../login-sin/Login"
 import {Home} from '../Home/home'
 import {Signup} from '../login-sin/Signup'

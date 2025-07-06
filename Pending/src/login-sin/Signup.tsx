@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Meteors } from '../components/Particles/meteors'
-import axios from "axios"
 
 export const Signup = () => {
     const [user, setUser] = useState({
