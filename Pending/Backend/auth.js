@@ -9,7 +9,7 @@ import Razorpay from 'razorpay'
 import {S3Client} from "@aws-sdk/client-s3"
 import dotenv from 'dotenv'
 import multerS3 from "multer-s3"
-import 
+import axios from 'axios'
 
 dotenv.config();
 
