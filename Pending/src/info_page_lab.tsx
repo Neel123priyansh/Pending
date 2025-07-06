@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DatePicker from "react-datepicker";
-import { addDays, subDays } from 'react-datepicker/dist/date_utils.d';
+import { addDays} from 'react-datepicker/dist/date_utils.d';
 import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import { ToastContainer, toast } from 'react-toastify';
@@ -19,12 +19,6 @@ declare global {
     recaptchaVerifier: any;
   }
 }
-const resolveAfter3Sec = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("Success");
-  }, 3000); 
-});
-
 
 export const Info_lab = () => {
 const [user, setUser] = useState<{
@@ -47,12 +41,10 @@ const [user, setUser] = useState<{
   const [, setIsSubmitting] = useState(false);
   const [fileName, setFileName] = useState("");
   const navigate = useNavigate();
-  const [recaptchaVerifier, setRecaptchaVerifier] = useState<RecaptchaVerifier | null>(null);
 
   const {
     register,
     formState: { errors },
-    setValue,
   } = useForm({
     resolver: yupResolver(infoSchema),
   });
@@ -77,7 +69,7 @@ const sendOTP = async (phoneNumber: string) => {
     if (!(window as any).recaptchaVerifier) {
       (window as any).recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
         size: "invisible",
-        callback: (response: any) => {
+        callback: () => {
           // reCAPTCHA solved, proceed
         },
         'expired-callback': () => {
