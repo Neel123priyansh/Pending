@@ -74,16 +74,20 @@ router.get("/", (req, res) => {
 
 router.post('/upload-pdf', awsupload.single('file'), async (req, res) => {
   try {
-    if (!req.file) return res.status(400).json({ status: 'error', message: 'No file uploaded' });
-
-    const dataBuffer = req.file.buffer;
-    const data = await pdf(dataBuffer);
+    if (!req.file || !req.file.buffer) {
+      return res.status(400).json({ error: "No file uploaded or buffer is missing" });
+    }
+    const data = await pdf(req.file.buffer);
     const pageCount = data.numpages;
 
-    res.status(200).json({ status: 'ok', pdf: { fileUrl: req.file.filename }, pageCount });
+    res.status(200).json({
+      status: "ok",
+      pdf: { fileUrl: req.file.originalname }, // or req.file.location if using S3
+      pageCount,
+    });
   } catch (error) {
-    console.error('PDF parsing error:', error);
-    res.status(500).json({ error: 'Failed to read PDF' });
+    console.error("PDF parsing error:", error);
+    res.status(500).json({ error: "Failed to parse PDF" });
   }
 });
 
