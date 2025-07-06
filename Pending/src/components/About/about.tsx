@@ -1,9 +1,5 @@
-import { forwardRef } from "react";
-import { useRef } from "react";
-import Aboutna from '../../../src/assets/Aboutna.png'
 import Climb from '../../../src/assets/climb.png'
 import { FlickeringGrid } from "../magicui/flickering-grid";
-import people from "./people";
 
 
 function about() {

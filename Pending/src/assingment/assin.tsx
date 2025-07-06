@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Header from "../components/Header/header";
 import { Test } from '../Test/test';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import '@coreui/coreui-pro/dist/css/coreui.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
 export const Assin = () => {
-  const [title, setTitle] = useState("");
+  const [title] = useState("");
   const [file, setFile] = useState<File | null>(null); 
   const [fileName, setFileName] = useState("");
   const navigate = useNavigate()
-  const [alimage, setAllimage] = useState(null)
+  const [] = useState(null)
 
   const handleFile = (file: File) => {
     setFile(file); 
