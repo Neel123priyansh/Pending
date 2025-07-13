@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import '@coreui/coreui-pro/dist/css/coreui.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-import { Test } from './Test/test';
+import { Test } from './Test/Test';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { infoSchema } from "./login-sin/validationSchema";
 import { auth, RecaptchaVerifier, signInWithPhoneNumber } from "./components/Verification/firebase";
