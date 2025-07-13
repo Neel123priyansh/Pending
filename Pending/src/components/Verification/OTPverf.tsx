@@ -24,7 +24,7 @@ const OTPverf: React.FC = () => {
 
   const handleResend = async () => {
     try {
-      await resendOtp(); // Your resend function
+      resendOtp(); // Your resend function
       toast.success("OTP resent successfully!");
       setTimeLeft(120);
       setCanResend(false);

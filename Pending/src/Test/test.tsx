@@ -7,7 +7,7 @@ interface TestProps {
 export const Test: React.FC<TestProps> = ({ handleFile }) => {
   const hiddenFileInput = useRef<HTMLInputElement>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (_event: React.MouseEvent<HTMLButtonElement>) => {
     hiddenFileInput.current?.click();
   };
 
