@@ -1,4 +1,3 @@
-import '../App.css'
 import Header from "../components/Header/header"
 import Main from "../components/Main/main-part"
 import Card from "../components/Main/main-part-card"
